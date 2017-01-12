@@ -16,4 +16,7 @@ class DashCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var totalNumberLabel: UILabel!
     @IBOutlet weak var markedLabel: UILabel!
     @IBOutlet weak var unmarkedLabel: UILabel!
+    @IBOutlet weak var markedAttendanceData: UILabel!
+    @IBOutlet weak var unmarkedAttendanceData: UILabel!
+    @IBOutlet weak var menuButton: UIButton!
 }

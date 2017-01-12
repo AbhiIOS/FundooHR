@@ -6,7 +6,15 @@ target 'FundooHR' do
   use_frameworks!
 
   # Pods for FundooHR
-
+  
+  pod 'Firebase/Storage'
+  pod 'Firebase/AdMob'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Crash'
+  pod 'Firebase/Database'
+  pod 'Firebase/RemoteConfig'
+  pod 'Alamofire'
+  
   target 'FundooHRTests' do
     inherit! :search_paths
     # Pods for testing

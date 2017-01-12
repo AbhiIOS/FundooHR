@@ -39,18 +39,20 @@
                     <rect key="frame" x="0.0" y="178" width="242" height="179"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-Qb-sTc">
-                            <rect key="frame" x="96" y="82.333333333333314" width="51" height="15.666666666666686"/>
+                            <rect key="frame" x="96" y="78" width="51" height="19"/>
                             <constraints>
+                                <constraint firstAttribute="height" constant="19" id="Rmm-VD-H1f"/>
                                 <constraint firstAttribute="width" constant="51" id="jE7-kw-SnM"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="51" id="t52-uN-M1k"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="tTx-Qb-sTc" firstAttribute="centerY" secondItem="fpI-qg-wwS" secondAttribute="centerY" id="6Md-cP-XFg"/>
+                        <constraint firstItem="tTx-Qb-sTc" firstAttribute="centerY" secondItem="fpI-qg-wwS" secondAttribute="centerY" constant="-2" id="6Md-cP-XFg"/>
                         <constraint firstItem="tTx-Qb-sTc" firstAttribute="centerX" secondItem="fpI-qg-wwS" secondAttribute="centerX" id="Ifu-db-cle"/>
                     </constraints>
                 </view>
@@ -71,7 +73,7 @@
                 <outlet property="attendanceData" destination="tTx-Qb-sTc" id="2Wr-DT-nBO"/>
                 <outlet property="dayLabel" destination="yPW-zs-uEg" id="C7I-II-q8V"/>
             </connections>
-            <point key="canvasLocation" x="-230" y="-57"/>
+            <point key="canvasLocation" x="-230" y="-57.5"/>
         </view>
     </objects>
 </document>

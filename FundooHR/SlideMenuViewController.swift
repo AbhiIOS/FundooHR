@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import CoreData
 
 class SlideMenuViewController: UIViewController {
 
     @IBOutlet weak var slideTableView: UITableView!
     var dashBoard:DashboardViewController?
+    var loginVC:ViewController?
+    
     
     var array = ["Dashboard","Engineers","Attendance Summary","Reports","Clients"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginVC = ViewController()
         slideTableView.dataSource = self
         // Do any additional setup after loading the view.
     }
@@ -27,6 +31,30 @@ class SlideMenuViewController: UIViewController {
     }
     
 
+    @IBAction func logOut(_ sender: Any) {
+        
+       self.deleteToken()
+       //self.prepare(for: .init(identifier: "logout", source: self, destination: ViewController), sender: nil)
+        
+    }
+    
+    func deleteToken() -> Void {
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        do{
+            
+            let fetchReq : NSFetchRequest = LoginToken1.fetchRequest()
+            let userArray : [LoginToken1] = try context.fetch(fetchReq)
+            
+            context.delete(userArray[0])
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+        }catch{
+            print("fetching failed")
+        }
+
+    }
     
     // MARK: - Navigation
 
@@ -35,12 +63,24 @@ class SlideMenuViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        var indexpath:IndexPath?
-        indexpath = slideTableView.indexPathForSelectedRow
-        let dash = segue.destination as! DashboardViewController
-        let name = array[(indexpath?.row)!]
-        dash.fieldName = name
-        dash.index = (indexpath?.row)!
+        if segue.identifier == "logout" {
+            
+        let temp = segue.destination as! ViewController
+            temp.performSegue(withIdentifier: "logout", sender: nil)
+            
+        }
+        else
+        {
+        
+            var indexpath:IndexPath?
+            indexpath = slideTableView.indexPathForSelectedRow
+            let dash = segue.destination as! DashboardViewController
+            let name = array[(indexpath?.row)!]
+            dash.fieldName = name
+            dash.boolVar = false
+            dash.index = (indexpath?.row)!
+        }
+        
     }
     
 
