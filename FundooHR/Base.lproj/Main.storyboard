@@ -102,7 +102,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2kL-9w-CeW" id="Qnt-gw-h1y">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHe-DL-9EN">
@@ -178,6 +178,7 @@
                     </view>
                     <connections>
                         <outlet property="slideTableView" destination="izO-Az-Cpz" id="XVQ-68-Ofa"/>
+                        <outlet property="sliderEmailLabel" destination="Q6X-xr-SHf" id="KDr-yY-fzw"/>
                         <segue destination="fxk-tF-wzt" kind="show" identifier="logout" id="90A-rC-A4J"/>
                     </connections>
                 </viewController>
@@ -204,7 +205,7 @@
         <!--View Controller-->
         <scene sceneID="ZhQ-hM-Ex5">
             <objects>
-                <viewController id="fxk-tF-wzt" customClass="ViewController" customModule="FundooHR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="fxk-tF-wzt" customClass="ViewController" customModule="FundooHR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KBf-Nb-poq"/>
                         <viewControllerLayoutGuide type="bottom" id="UhR-qh-haF"/>
@@ -267,6 +268,11 @@
                                                         <color key="textColor" red="0.23137254901960785" green="0.32549019607843138" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="H2E-Co-ICx">
+                                                        <rect key="frame" x="157" y="122" width="37" height="37"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.96862745098039216" green="0.96078431372549022" blue="0.94509803921568625" alpha="0.81980064655172413" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -285,17 +291,6 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="ub6-rV-B6g">
                                                 <rect key="frame" x="154" y="105" width="107" height="120"/>
                                             </imageView>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="H2E-Co-ICx">
-                                                <rect key="frame" x="154" y="539" width="20" height="20"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </activityIndicatorView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uea-3j-A0V">
-                                                <rect key="frame" x="182" y="539" width="90" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -332,7 +327,6 @@
                         <outlet property="activityLoader" destination="H2E-Co-ICx" id="FG4-nE-tBZ"/>
                         <outlet property="bridgeLabImage" destination="ub6-rV-B6g" id="R7A-4M-ihF"/>
                         <outlet property="emailTextField" destination="jKi-2s-OU3" id="z1d-zQ-uWb"/>
-                        <outlet property="loadingLabel" destination="uea-3j-A0V" id="e4b-pP-kj6"/>
                         <outlet property="loginBtn" destination="dAm-g2-5qP" id="Dcm-Z0-h5G"/>
                         <outlet property="passwordField" destination="XYI-FT-bzp" id="jgV-Qg-HSw"/>
                         <outlet property="secondView" destination="ISQ-Fu-wZp" id="uJ7-lJ-jfd"/>
@@ -496,7 +490,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fallOutCell" id="qrc-I6-uAK" customClass="AttendanceFallOutCollectionViewCell" customModule="FundooHR" customModuleProvider="target">
-                                                <rect key="frame" x="42.666666666666664" y="0.0" width="311" height="177"/>
+                                                <rect key="frame" x="43" y="0.0" width="311" height="177"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="311" height="177"/>
@@ -600,7 +594,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="attendanceSummary" id="DQB-sZ-UMa" customClass="DashCollectionViewCell" customModule="FundooHR" customModuleProvider="target">
-                                                <rect key="frame" x="41.666666666666664" y="0.0" width="313" height="234"/>
+                                                <rect key="frame" x="42" y="0.0" width="313" height="234"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="313" height="234"/>

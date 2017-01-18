@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import Alamofire
 import CoreData
+
+
 
 class ViewController: UIViewController {
 
@@ -18,22 +19,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var activityLoader:UIActivityIndicatorView!
-    @IBOutlet weak var loadingLabel: UILabel!
+   
     
     var lognVM:LoginViewModel?
     var dashVM:DashboardViewModel?
     var loginToken:String?
+    var email:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loadingLabel.isHidden = true
-        self.loadingLabel.isHidden = true
-        
         lognVM = LoginViewModel()
         lognVM?.loginVC = self
         dashVM = DashboardViewModel()
-        
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -57,7 +55,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -80,14 +78,36 @@ class ViewController: UIViewController {
     
     @IBAction func loginBtnPressed(_ sender: Any) {
         
-        let email = emailTextField.text
+        email = emailTextField.text
+        print(email!)
         let password = passwordField.text
-        lognVM?.email = email
-        lognVM?.passsword = password
-        self.activityLoader.isHidden = false
-        self.loadingLabel.isHidden = false
-        self.activityLoader.startAnimating()
-        lognVM?.callLoginVM()
+        var check:String?
+        
+        if emailTextField.text! == "" || passwordField.text! == "" {
+            
+            if emailTextField.text == "" {
+                check = "Please Enter the emailID"
+                emailTextField.text = ""
+            }
+            else if passwordField.text == ""
+            {
+                check = "Please Enter the password"
+                passwordField.text = ""
+            }
+            let alertView = UIAlertController.init(title: "ERROR !!!!!", message: check!, preferredStyle: UIAlertControllerStyle.alert)
+            let action = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+            alertView.addAction(action)
+            self.present(alertView, animated: true, completion:nil)
+        }
+        else{
+            
+            lognVM?.email = email!
+            lognVM?.passsword = password
+            self.activityLoader.isHidden = false
+            self.activityLoader.startAnimating()
+            lognVM?.callLoginVM()
+        }
+        
         
 //        Alamofire.request("http://192.168.0.171:3000/readDashboardData?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBicmlkZ2VsYWJ6LmNvbSIsImlhdCI6MTQ4NDAzMzU0NiwiZXhwIjoxNDg1MjQzMTQ2fQ.2T2njrWkL96Sb6g-JxIujlGcDP07_5fNtvTzMf8T16s&timeStamp=1484041876000").responseJSON
 //            { response in
@@ -125,8 +145,7 @@ class ViewController: UIViewController {
     func validateLogin(tokn1:String, status:Int, messg:String) -> Void {
         if status == 200 {
             loginToken = tokn1
-            self.saveInCoreData(saveToken: tokn1)
-            self.loadingLabel.isHidden = true
+            self.saveInCoreData(saveToken: tokn1, emailID: email!)
             self.activityLoader.stopAnimating()
             self.activityLoader.isHidden = true
             self.performSegue(withIdentifier: "loginSeg", sender: nil)
@@ -134,12 +153,13 @@ class ViewController: UIViewController {
         }
     }
     
-    func saveInCoreData(saveToken:String) -> Void {
+    func saveInCoreData(saveToken:String, emailID:String) -> Void {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let user = LoginToken1(context: context)
         user.tokenData = saveToken
+        user.emailID = emailID
         
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
         
@@ -147,11 +167,16 @@ class ViewController: UIViewController {
     
     func errorMessage() -> Void {
         
+        self.activityLoader.stopAnimating()
+        self.activityLoader.isHidden = true
+
         let alertView = UIAlertController.init(title: "ERROR !!!!!", message: "Something Wrong Happened", preferredStyle: UIAlertControllerStyle.alert)
         let action = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
         alertView.addAction(action)
         self.present(alertView, animated: true, completion:nil)
     }
+    
+    
     
 }
 

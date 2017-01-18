@@ -12,9 +12,11 @@ import CoreData
 class SlideMenuViewController: UIViewController {
 
     @IBOutlet weak var slideTableView: UITableView!
+    @IBOutlet weak var sliderEmailLabel: UILabel!
+    
     var dashBoard:DashboardViewController?
     var loginVC:ViewController?
-    
+    var emailIdLabel:String?
     
     var array = ["Dashboard","Engineers","Attendance Summary","Reports","Clients"]
     
@@ -22,6 +24,8 @@ class SlideMenuViewController: UIViewController {
         super.viewDidLoad()
         loginVC = ViewController()
         slideTableView.dataSource = self
+        let emailid = self.fetchEmail()
+        sliderEmailLabel.text = emailid
         // Do any additional setup after loading the view.
     }
 
@@ -34,7 +38,9 @@ class SlideMenuViewController: UIViewController {
     @IBAction func logOut(_ sender: Any) {
         
        self.deleteToken()
-       //self.prepare(for: .init(identifier: "logout", source: self, destination: ViewController), sender: nil)
+       let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+        
+        self.present(viewController, animated: false, completion: nil)
         
     }
     
@@ -47,7 +53,11 @@ class SlideMenuViewController: UIViewController {
             let fetchReq : NSFetchRequest = LoginToken1.fetchRequest()
             let userArray : [LoginToken1] = try context.fetch(fetchReq)
             
-            context.delete(userArray[0])
+            for i in userArray
+            {
+              context.delete(i)
+            }
+            
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
             
         }catch{
@@ -56,21 +66,31 @@ class SlideMenuViewController: UIViewController {
 
     }
     
+    func fetchEmail() -> String
+    {
+        var detailsArray : [LoginToken1]?
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        do{
+            
+            let fetchReq : NSFetchRequest = LoginToken1.fetchRequest()
+            detailsArray = try context.fetch(fetchReq)
+            emailIdLabel = detailsArray?[0].emailID
+            
+            
+        }catch{
+            print("fetching failed")
+        }
+        return emailIdLabel!
+    }
+
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        
-        if segue.identifier == "logout" {
-            
-        let temp = segue.destination as! ViewController
-            temp.performSegue(withIdentifier: "logout", sender: nil)
-            
-        }
-        else
-        {
         
             var indexpath:IndexPath?
             indexpath = slideTableView.indexPathForSelectedRow
@@ -79,7 +99,7 @@ class SlideMenuViewController: UIViewController {
             dash.fieldName = name
             dash.boolVar = false
             dash.index = (indexpath?.row)!
-        }
+        
         
     }
     

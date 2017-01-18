@@ -8,6 +8,20 @@
 import Foundation
 import UIKit
 
+var monthsAry:NSMutableArray?
+var yearAry:NSMutableArray?
+var markedAttdendance:String!
+var unmarkedAttendance:String!
+var attendanceFallNumberLabel:String!
+var leave:String!
+var totalEmployee:String!
+var totalEmployee1:String?
+var totalEmployee3:String?
+var perDayAttendance:NSArray = []
+var unmarkedEmpArray:[UnmarkedEmployee]?
+var jsonTimeStamp:CLong?
+
+
 class DashboardViewModel: NSObject, ViewModelProtocol {
 
 //    var monthArray:NSMutableArray = []
@@ -15,27 +29,25 @@ class DashboardViewModel: NSObject, ViewModelProtocol {
     var DashCONVAR:DashboardController?
     var dashboard:DashboardViewController?
     var loginScreen:ViewController?
-    var markedAttdendance:String!
-    var unmarkedAttendance:String!
-    var attendanceFallNumberLabel:String!
-    var leave:String!
-    var totalEmployee:String!
-    var totalEmployee1:String?
-    var totalEmployee3:String?
-    var perDayAttendance:NSArray = []
-    var unmarkedEmpArray:[UnmarkedEmployee]?
+//    var markedAttdendance:String!
+//    var unmarkedAttendance:String!
+//    var attendanceFallNumberLabel:String!
+//    var leave:String!
+//    var totalEmployee:String!
+//    var totalEmployee1:String?
+//      var totalEmployee3:String?
+//    var perDayAttendance:NSArray = []
+//    var unmarkedEmpArray:[UnmarkedEmployee]?
     var i:Int = 0
-    var monthsAry:NSMutableArray?
-    var yearAry:NSMutableArray?
-    var tokenData:String?
-    var jsonTimeStamp:CLong?
+//    var monthsAry:NSMutableArray?
+//    var yearAry:NSMutableArray?
+//    var jsonTimeStamp:CLong?
     
     func CallToViewModel() -> Void {
         
         DashCONVAR = DashboardController()
         loginScreen = ViewController()
         DashCONVAR?.delegate = self
-        //tokenData = tokn
         DashCONVAR?.CallToController()
     }
     
@@ -59,21 +71,20 @@ class DashboardViewModel: NSObject, ViewModelProtocol {
     }
     
     func recieveMonthlyAttendanceDataFromController(perDayAttendance1:NSArray, totalEmp:Int?) -> Void {
-        self.perDayAttendance = perDayAttendance1
-        self.totalEmployee1 = String(describing: totalEmp!)
-        //loginScreen?.success()
-        //dashboard?.calenderView.reloadData()
+        perDayAttendance = perDayAttendance1
+        totalEmployee1 = String(describing: totalEmp!)
+        
     }
     
     func recieveMonthlyAttendanceDataFromController11(perDayAttendance1:NSArray, totalEmp:Int?) -> Void {
-        self.perDayAttendance = perDayAttendance1
-        self.totalEmployee1 = String(describing: totalEmp!)
+        perDayAttendance = perDayAttendance1
+        totalEmployee1 = String(describing: totalEmp!)
         dashboard?.reloadCalendar()
     }
     
     func recieveUnmarkedAttendanceDataFromControlletr(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?) -> Void {
-        self.unmarkedEmpArray = unmarkedEmp1
-        self.totalEmployee3 = totalEmployee2
+        unmarkedEmpArray = unmarkedEmp1
+        totalEmployee3 = totalEmployee2
         
     }
     
@@ -84,6 +95,10 @@ class DashboardViewModel: NSObject, ViewModelProtocol {
         
         return unmarkedEmp
         
+    }
+    
+    func errorMessageVM() -> Void {
+        dashboard?.errorMessage()
     }
     
 }

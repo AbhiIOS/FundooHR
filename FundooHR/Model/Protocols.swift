@@ -20,6 +20,8 @@ protocol ViewModelProtocol {
     func recieveUnmarkedAttendanceDataFromControlletr(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?)
     
     func recieveMonthlyAttendanceDataFromController11(perDayAttendance1:NSArray, totalEmp:Int?)
+    
+    func errorMessageVM()
 }
 
 protocol ControllerProtocol {
@@ -33,6 +35,8 @@ protocol ControllerProtocol {
     func recieveUnmarkedAttendanceDataFromServices(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?)
     
     func recieveMonthlyAttendanceDataFromServices11(perDayAttendance1:NSArray, totalEmp:Int?)
+    
+    func errorMessageCNTRLR()
 }
 
 protocol LoginVMProtocol {

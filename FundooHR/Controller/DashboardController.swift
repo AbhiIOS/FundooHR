@@ -54,5 +54,9 @@ class DashboardController: NSObject, ControllerProtocol {
         
         delegate?.recieveUnmarkedAttendanceDataFromControlletr(unmarkedEmp1: unmarkedEmp1, totalEmployee2: totalEmployee2)
     }
+    
+    func errorMessageCNTRLR() -> Void {
+        delegate?.errorMessageVM()
+    }
 
 }

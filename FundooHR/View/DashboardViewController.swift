@@ -58,8 +58,10 @@ class DashboardViewController: UIViewController {
         
           dashVM = DashboardViewModel()
           dashVM?.dashboard = self
-          dashVM?.CallToViewModel()
-        
+        if boolVar {
+            
+            dashVM?.CallToViewModel()
+        }
         
         switch index {
         case 0:
@@ -90,8 +92,8 @@ class DashboardViewController: UIViewController {
         let currentYear = formatter1.string(from: Date())
         headerDateLabel.text = formatter2.string(from: Date())
         
-        monthArray = dashVM?.monthsAry
-        yearArray = dashVM?.yearAry
+        monthArray = monthsAry
+        yearArray = yearAry
         print(monthArray!.count)
         print(yearArray!.count)
         
@@ -173,6 +175,15 @@ class DashboardViewController: UIViewController {
         
     }
     
+    func errorMessage() -> Void {
+        
+        let alertView = UIAlertController.init(title: "ERROR !!!!!", message: "Internet Not Connected", preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+        alertView.addAction(action)
+        self.present(alertView, animated: true, completion:nil)
+    }
+
+    
 }
 
 extension DashboardViewController : UICollectionViewDataSource
@@ -230,11 +241,23 @@ extension DashboardViewController : UICollectionViewDataSource
                 cell.unmarkedAttendanceData.layer.masksToBounds = true
                 cell.markedAttendanceData.layer.cornerRadius = 18.65
                 cell.unmarkedAttendanceData.layer.cornerRadius = 18.65
-                cell.markedAttendanceData.text = dashVM?.markedAttdendance
-                cell.unmarkedAttendanceData.text = dashVM?.unmarkedAttendance
-                date1 = Date.init(timeIntervalSince1970: Double((dashVM?.jsonTimeStamp)! / 1000))
-                print(date1!)
-                cell.dateLabel.text = formatter.string(from: date1! as Date)
+                cell.markedAttendanceData.text = markedAttdendance
+                cell.unmarkedAttendanceData.text = unmarkedAttendance
+                
+                //if String(describing: jsonTimeStamp) != "nil" {
+                    date1 = Date.init(timeIntervalSince1970: Double((jsonTimeStamp)! / 1000))
+                    print(date1!)
+                    cell.dateLabel.text = formatter.string(from: date1! as Date)
+               // }
+//                else{
+//                    
+//                    let alertView = UIAlertController.init(title: "ERROR !!!!!", message: "Something Wrong Happened", preferredStyle: UIAlertControllerStyle.alert)
+//                    let action = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+//                    alertView.addAction(action)
+//                    self.present(alertView, animated: true, completion:nil)
+//                    UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+//                    
+//                }
                 break
                 
             case 1:
@@ -245,8 +268,8 @@ extension DashboardViewController : UICollectionViewDataSource
                 cell.markedAttendanceData.isHidden = true
                 cell.unmarkedAttendanceData.isHidden = true
                 cell.titleLabel.text = "Attendance Fallout"
-                cell.NumberLabel.text = dashVM?.attendanceFallNumberLabel
-                let str = dashVM?.totalEmployee
+                cell.NumberLabel.text = attendanceFallNumberLabel
+                let str = totalEmployee
                 print(str!)
                 cell.totalNumberLabel.text = "Out of "+str!//(dashVM?.totalEmployee)!
                 cell.menuButton.isEnabled = false
@@ -261,7 +284,7 @@ extension DashboardViewController : UICollectionViewDataSource
                 cell.unmarkedAttendanceData.isHidden = true
                 cell.unmarkedLabel.isHidden = true
                 cell.titleLabel.text = "Leave Summary"
-                cell.NumberLabel.text = dashVM?.leave
+                cell.NumberLabel.text = leave
                 cell.totalNumberLabel.text = "Uptill"
                 cell.totalNumberLabel.textColor = UIColor(colorWithHexValue: 0x6FB8D9)
                 cell.menuButton.isEnabled = false
@@ -371,16 +394,18 @@ extension DashboardViewController : JTAppleCalendarViewDelegate
         func calendar(_ calendar: JTAppleCalendarView, willDisplayCell cell: JTAppleDayCellView, date: Date, cellState: CellState) {
         let  dateCell = cell as! CellView
         
-        dateCell.layer.borderWidth = 0.5
+        dateCell.layer.borderWidth = 0.6
         dateCell.layer.borderColor = UIColor.lightGray.cgColor
         dateCell.dayLabel.text = cellState.text
         
         if cellState.dateBelongsTo == .thisMonth
         {
-            
+            dateCell.layer.borderWidth = 0.6
+            dateCell.layer.borderColor = UIColor.lightGray.cgColor
             dateCell.dayLabel.textColor =  UIColor(colorWithHexValue: 0x6FB8D9)
             let day = (dashVM?.dayAttendance())!
-            dateCell.attendanceData.text = day+"/"+(dashVM?.totalEmployee1)!
+            dateCell.attendanceData.isHidden = false
+            dateCell.attendanceData.text = day+"/"+(totalEmployee1)!
            if (day.compare("0") == ComparisonResult.orderedDescending) {
                 dateCell.attendanceData.textColor = UIColor.red
             }
@@ -390,6 +415,8 @@ extension DashboardViewController : JTAppleCalendarViewDelegate
             
         }
         else{
+            dateCell.layer.borderWidth = 0.6
+            dateCell.layer.borderColor = UIColor.lightGray.cgColor
             dateCell.dayLabel.textColor = UIColor(colorWithHexValue: 0xA9A9A9)
             dateCell.attendanceData.isHidden = true
         }

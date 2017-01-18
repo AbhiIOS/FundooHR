@@ -31,6 +31,7 @@ class DashboardServices: NSObject {
     var totalEmp:Int?
     var token:String?
     var timeStamp:Int?
+    var timeStamp2:CLong?
     
     var monthArray:NSMutableArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
@@ -44,12 +45,13 @@ class DashboardServices: NSObject {
         
         let token = self.fetchToken()
         timeStamp = Int(Date().timeIntervalSince1970 * 1000)
-        
         print(timeStamp!)
         
-//        Alamofire.request("http://192.168.0.171:3000/readDashboardData?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBicmlkZ2VsYWJ6LmNvbSIsImlhdCI6MTQ4NDAzMzU0NiwiZXhwIjoxNDg1MjQzMTQ2fQ.2T2njrWkL96Sb6g-JxIujlGcDP07_5fNtvTzMf8T16s&timeStamp=1484041876000").responseJSON
-//            { response in
-//                print("response----",response)
+//        let urlString: String = "http://192.168.0.118:3000/readDashboardData"
+//        let params = ["token":  (token)/*"admin@bridgelabz.com"*/, "timeStamp" : (timeStamp!)/*"Bridge@123"*/] as [String : Any]
+//        Alamofire.request(urlString, method: .get, parameters: params, encoding: JSONEncoding.default)
+//            .responseJSON { response in
+//                print("--response--",response)
 //                print("result----",response.result)
 //                if((response.result).isSuccess){
 //                    print("result-------",response.result)
@@ -61,7 +63,7 @@ class DashboardServices: NSObject {
 //                    
 //                    let attendanceSummary = json["attendanceSummary"] as! NSDictionary
 //                    self.marked = attendanceSummary["marked"] as? Int
-//                    self.unmarked = attendanceSummary["unmarked"] as? Int
+//                    self.unmarked = attendanceSummary["unmarked"] as? String
 //                    
 //                    let attendanceFallout = json["attendanceFallout"] as! NSDictionary
 //                    self.fallOutNum = attendanceFallout["falloutEmployee"] as? Int
@@ -69,21 +71,50 @@ class DashboardServices: NSObject {
 //                    
 //                    let leaveSummary = json["leaveSummary"] as! NSDictionary
 //                    self.leave = leaveSummary["leave"] as? String
-//                    
-//                    
+//                                    
+//                                    
 //                    self.delegate?.recieveDashboardDataFromServices(markedData: self.marked, unmarkedData: self.unmarked, attendanceFallNumber: self.fallOutNum, leave1: self.leave, totalEmployee11: self.totalEmployee, timeStamp: timeStamp2)
 //                    
 //                }
-//
-//            }
+//               // print("Hello")
+//                
+//        }
+
         
-        
-    
-        
+//                Alamofire.request("http://192.168.0.171:3000/readDashboardData?token=\(token)&timeStamp=\(timeStamp!)").responseJSON
+//                    { response in
+//                        print("response----",response)
+//                        print("result----",response.result)
+//                        if((response.result).isSuccess){
+//                            print("result-------",response.result)
+//        
+//                            let json = response.result.value as! NSDictionary
+//                            print(json)
+//        
+//                            let timeStamp2 = json["timeStamp"] as! CLong
+//        
+//                            let attendanceSummary = json["attendanceSummary"] as! NSDictionary
+//                            self.marked = attendanceSummary["marked"] as? Int
+//                            self.unmarked = attendanceSummary["unmarked"] as? String
+//        
+//                            let attendanceFallout = json["attendanceFallout"] as! NSDictionary
+//                            self.fallOutNum = attendanceFallout["falloutEmployee"] as? Int
+//                            self.totalEmployee = attendanceFallout["totalEmployee"] as? Int
+//        
+//                            let leaveSummary = json["leaveSummary"] as! NSDictionary
+//                            self.leave = leaveSummary["leave"] as? String
+//        
+//        
+//                            self.delegate?.recieveDashboardDataFromServices(markedData: self.marked, unmarkedData: self.unmarked, attendanceFallNumber: self.fallOutNum, leave1: self.leave, totalEmployee11: self.totalEmployee, timeStamp: timeStamp2)
+//        
+//          }
+//        
+//           }
+
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let url = URL(string: "http://192.168.0.171:3000/readDashboardData?token=\(token)&timeStamp=\(timeStamp!)")!
+        let url = URL(string: "http://192.168.0.118:3000/readDashboardData?token=\(token)&timeStamp=\(timeStamp!)")!
         
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in
@@ -103,8 +134,8 @@ class DashboardServices: NSObject {
                         let dashboardData = json as NSDictionary
                         print(dashboardData)
                         
-                        let timeStamp2 = dashboardData["timeStamp"] as! CLong
-                        
+                        self.timeStamp2 = dashboardData["timeStamp"] as? CLong
+                        print(self.timeStamp2!)
                         let attendanceSummary = dashboardData["attendanceSummary"] as! NSDictionary
                         self.marked = attendanceSummary["marked"] as? Int
                         self.unmarked = attendanceSummary["unmarked"] as? String
@@ -116,8 +147,8 @@ class DashboardServices: NSObject {
                         let leaveSummary = dashboardData["leaveSummary"] as! NSDictionary
                         self.leave = leaveSummary["leave"] as? String
                         
+                        self.delegate?.recieveDashboardDataFromServices(markedData: self.marked, unmarkedData: self.unmarked, attendanceFallNumber: self.fallOutNum, leave1: self.leave, totalEmployee11: self.totalEmployee, timeStamp: self.timeStamp2)
                         
-                        self.delegate?.recieveDashboardDataFromServices(markedData: self.marked, unmarkedData: self.unmarked, attendanceFallNumber: self.fallOutNum, leave1: self.leave, totalEmployee11: self.totalEmployee, timeStamp: timeStamp2)
  
                     }
                     
@@ -139,37 +170,9 @@ class DashboardServices: NSObject {
         
         let token2 = self.fetchToken()
         
-//        Alamofire.request("http://192.168.0.171:3000/readMonthlyAttendanceSummary?token=\(token2)&timeStamp=\(timeStamp!)").responseJSON
-//            { response in
-//                print("response----",response)
-//                print("result----",response.result)
-//                if((response.result).isSuccess){
-//                    print("result-------",response.result)
-//                    
-//                    let monthlyAttendance = response.result.value as! NSDictionary
-//                    //print(json)
-//                    self.totalEmp = monthlyAttendance["totalEmployee"] as? Int
-//                    self.monthlyAttendance = monthlyAttendance["attendance"] as! NSArray
-//                    for ary in self.monthlyAttendance
-//                    {
-//                        let attendance = ary as! NSDictionary
-//                        self.perDayAttendance.add(attendance)
-//                        
-//                    }
-//                    print(self.perDayAttendance)
-//                    let sortedArray = self.perDayAttendance.sorted{(($0 as! NSDictionary)["day"]as? Int)!<(($1 as! NSDictionary)["day"]as? Int)!}
-//                    print(sortedArray)
-//                    
-//                    self.delegate?.recieveMonthlyAttendanceDataFromServices(perDayAttendance1: sortedArray as NSArray, totalEmp: self.totalEmp)
-//                    
-//                }
-//                
-//        }
-
-        
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let url = URL(string: "http://192.168.0.171:3000/readMonthlyAttendanceSummary?token=\(token2)&timeStamp=\(timeStamp!)")!
+        let url = URL(string: "http://192.168.0.118:3000/readMonthlyAttendanceSummary?token=\(token2)&timeStamp=\(timeStamp!)")!
         
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in
@@ -222,7 +225,7 @@ class DashboardServices: NSObject {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let url = URL(string: "http://192.168.0.171:3000/readMonthlyAttendanceSummary?token=\(token3)&timeStamp=\(timestamp)")!
+        let url = URL(string: "http://192.168.0.118:3000/readMonthlyAttendanceSummary?token=\(token3)&timeStamp=\(timestamp)")!
         
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in

@@ -18,7 +18,7 @@ class LoginServices: NSObject {
         
          dashServ = DashboardServices()
         
-        let urlString: String = "http://192.168.0.171:3000/login"
+        let urlString: String = "http://192.168.0.118:3000/login"
         let params = ["emailId":  (Useremail)/*"admin@bridgelabz.com"*/, "password" : (userPswd)/*"Bridge@123"*/]
         Alamofire.request(urlString, method: .post, parameters: params, encoding: JSONEncoding.default)
             .responseJSON { response in
