@@ -2,6 +2,9 @@
 //  LoginViewModel.swift
 //  FundooHR
 //
+//  Purpose:
+//  1. It is ViewModel Class of Login ViewController
+
 //  Created by BridgeLabz Solutions LLP  on 1/6/17.
 //  Copyright © 2017 BridgeLabz Solutions LLP . All rights reserved.
 //
@@ -10,27 +13,50 @@ import UIKit
 
 class LoginViewModel: NSObject, LoginVMProtocol {
     
-    var loginCntrllr:LoginController?
-    var loginVC:ViewController?
-    var tokn:String?
-    var loginStatus:Int?
-    var loginMssg:String?
-    var email:String?
-    var passsword:String?
+    //Var to store object of LoginController
+    var mLoginCntrllr:LoginController?
     
-    func callLoginVM() -> Void {
-        loginCntrllr = LoginController()
-        loginCntrllr?.delegate = self
-        loginCntrllr?.callLoginContrllr(email: email!, password: passsword!)
+    //Var to store object of LoginViewController
+    var mLoginVC:LoginViewController?
+    
+    //Var holds token data
+    var mTokn:String?
+    
+    //var to store login status data
+    var mLoginStatus:Int?
+    
+    //Var to store login message data
+    var mLoginMssg:String?
+    
+    //Var to store user EmailID
+    var mEmail:String?
+    
+    //Var to store user password
+    var mPasssword:String?
+    
+    //Constructor of LoginViewModel Class
+    init(loginViewControllerObj:LoginViewController, emailID:String, password:String) {
+        super.init()
+        mLoginVC = loginViewControllerObj
+        mEmail = emailID
+        mPasssword = password
+        mLoginCntrllr = LoginController(loginVMProtocolObj: self)
     }
     
-    func userLoginStatus(token1:String, status1:Int, message1:String) -> Void {
-        self.tokn = token1
-        self.loginStatus = status1
-        self.loginMssg = message1
+    //Method calling a function of LoginController
+    func callLoginVM() -> Void {
         
-        if tokn != nil && loginStatus != 0 && loginMssg != nil {
-            loginVC?.validateLogin(tokn1: tokn!, status: loginStatus!, messg: loginMssg!)
+        mLoginCntrllr?.callLoginContrllr(email: mEmail!, password: mPasssword!)
+    }
+    
+    //Validating User Login
+    func userLoginStatus(token1:String, status1:Int, message1:String) -> Void {
+        self.mTokn = token1
+        self.mLoginStatus = status1
+        self.mLoginMssg = message1
+        
+        if mTokn != nil && mLoginStatus != 0 && mLoginMssg != nil {
+            mLoginVC?.LoginResponse(tokn1: mTokn!, status: mLoginStatus!, messg: mLoginMssg!)
         }
         else
         {
@@ -38,8 +64,9 @@ class LoginViewModel: NSObject, LoginVMProtocol {
         }
     }
     
+    //Display Error message to user
     func errorMessageVM() -> Void {
-        loginVC?.errorMessage()
+        mLoginVC?.errorMessage()
     }
 
 }

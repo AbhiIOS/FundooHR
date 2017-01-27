@@ -32,24 +32,6 @@
             </objects>
             <point key="canvasLocation" x="-1742" y="48"/>
         </scene>
-        <!--Login View Controller-->
-        <scene sceneID="jjE-0z-VdL">
-            <objects>
-                <viewController id="KSk-mS-eqb" customClass="LoginViewController" customModule="FundooHR" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Wtv-qm-jkE"/>
-                        <viewControllerLayoutGuide type="bottom" id="reG-W9-3rE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iTX-DB-OrA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aOS-vV-ynI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2532" y="-832"/>
-        </scene>
         <!--Slide Menu View Controller-->
         <scene sceneID="gYb-aZ-uRy">
             <objects>
@@ -102,7 +84,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2kL-9w-CeW" id="Qnt-gw-h1y">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHe-DL-9EN">
@@ -122,7 +104,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="label" destination="iHe-DL-9EN" id="djO-Bh-nZH"/>
+                                            <outlet property="mLabel" destination="iHe-DL-9EN" id="sXB-IC-6DU"/>
                                             <segue destination="rgm-vT-99k" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Bhy-Rm-4pM"/>
                                         </connections>
                                     </tableViewCell>
@@ -177,8 +159,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="slideTableView" destination="izO-Az-Cpz" id="XVQ-68-Ofa"/>
-                        <outlet property="sliderEmailLabel" destination="Q6X-xr-SHf" id="KDr-yY-fzw"/>
+                        <outlet property="mSlideTableView" destination="izO-Az-Cpz" id="dNA-UA-Ptk"/>
+                        <outlet property="mSliderEmailLabel" destination="Q6X-xr-SHf" id="4tI-nv-KhW"/>
                         <segue destination="fxk-tF-wzt" kind="show" identifier="logout" id="90A-rC-A4J"/>
                     </connections>
                 </viewController>
@@ -202,10 +184,10 @@
             </objects>
             <point key="canvasLocation" x="-555" y="-42"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="ZhQ-hM-Ex5">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="fxk-tF-wzt" customClass="ViewController" customModule="FundooHR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="fxk-tF-wzt" customClass="LoginViewController" customModule="FundooHR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KBf-Nb-poq"/>
                         <viewControllerLayoutGuide type="bottom" id="UhR-qh-haF"/>
@@ -255,6 +237,11 @@
                                                         <state key="normal" title="Login">
                                                             <color key="titleColor" red="0.84705882352941175" green="0.81960784313725488" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="loginBtnPressed:" destination="fxk-tF-wzt" eventType="touchUpInside" id="iNq-Ab-eih"/>
                                                         </connections>
@@ -287,6 +274,11 @@
                                                     <constraint firstItem="jKi-2s-OU3" firstAttribute="trailing" secondItem="XYI-FT-bzp" secondAttribute="trailing" id="lQw-c2-QA8"/>
                                                     <constraint firstItem="d0b-ee-q3e" firstAttribute="centerX" secondItem="ISQ-Fu-wZp" secondAttribute="centerX" id="lTg-j2-OCK"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="ub6-rV-B6g">
                                                 <rect key="frame" x="154" y="105" width="107" height="120"/>
@@ -324,12 +316,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="aKq-zb-ikF"/>
                     <connections>
-                        <outlet property="activityLoader" destination="H2E-Co-ICx" id="FG4-nE-tBZ"/>
-                        <outlet property="bridgeLabImage" destination="ub6-rV-B6g" id="R7A-4M-ihF"/>
-                        <outlet property="emailTextField" destination="jKi-2s-OU3" id="z1d-zQ-uWb"/>
-                        <outlet property="loginBtn" destination="dAm-g2-5qP" id="Dcm-Z0-h5G"/>
-                        <outlet property="passwordField" destination="XYI-FT-bzp" id="jgV-Qg-HSw"/>
-                        <outlet property="secondView" destination="ISQ-Fu-wZp" id="uJ7-lJ-jfd"/>
+                        <outlet property="mActivityLoader" destination="H2E-Co-ICx" id="XRc-8j-qkz"/>
+                        <outlet property="mBridgeLabImage" destination="ub6-rV-B6g" id="bW5-xq-hPB"/>
+                        <outlet property="mEmailTextField" destination="jKi-2s-OU3" id="nXy-1z-tpd"/>
+                        <outlet property="mLoginBtn" destination="dAm-g2-5qP" id="sCF-9y-QRY"/>
+                        <outlet property="mLoginView" destination="ISQ-Fu-wZp" id="vmm-Mx-BYl"/>
+                        <outlet property="mPasswordField" destination="XYI-FT-bzp" id="XFu-aP-RSb"/>
                         <segue destination="Zem-Ny-cGh" kind="show" identifier="loginSeg" id="Jdf-sC-K0S"/>
                     </connections>
                 </viewController>
@@ -366,10 +358,23 @@
                                                     </pickerView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCa-du-0km" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                                         <rect key="frame" x="20" y="105" width="375" height="366"/>
+                                                        <subviews>
+                                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wxm-8G-WpI">
+                                                                <rect key="frame" x="169" y="165" width="37" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </activityIndicatorView>
+                                                        </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="366" id="cYy-tc-2NN"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -490,7 +495,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fallOutCell" id="qrc-I6-uAK" customClass="AttendanceFallOutCollectionViewCell" customModule="FundooHR" customModuleProvider="target">
-                                                <rect key="frame" x="43" y="0.0" width="311" height="177"/>
+                                                <rect key="frame" x="42.666666666666664" y="0.0" width="311" height="177"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="311" height="177"/>
@@ -594,7 +599,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="attendanceSummary" id="DQB-sZ-UMa" customClass="DashCollectionViewCell" customModule="FundooHR" customModuleProvider="target">
-                                                <rect key="frame" x="42" y="0.0" width="313" height="234"/>
+                                                <rect key="frame" x="41.666666666666664" y="0.0" width="313" height="234"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="313" height="234"/>
@@ -710,12 +715,34 @@
                                                     <constraint firstItem="nDM-ze-GcB" firstAttribute="centerX" secondItem="jAh-uB-21O" secondAttribute="centerX" id="zhm-IP-QMk"/>
                                                     <constraint firstItem="lF5-PK-Za2" firstAttribute="leading" secondItem="DQB-sZ-UMa" secondAttribute="leadingMargin" constant="49" id="zo6-OL-t67"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="contentView.layer.cornerRadius">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="contentView.layer.borderWidth">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="contentView.backgroundColor">
+                                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                        <real key="value" value="0.59999999999999998"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                        <size key="value" width="0.0" height="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                        <integer key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="NumberLabel" destination="lF5-PK-Za2" id="5nP-uw-Lcg"/>
                                                     <outlet property="dateLabel" destination="jAh-uB-21O" id="8Md-8y-WgD"/>
                                                     <outlet property="markedAttendanceData" destination="XWO-Rb-aZE" id="8jU-Sg-vv2"/>
                                                     <outlet property="markedLabel" destination="euF-mb-b9F" id="F9u-JP-91Z"/>
                                                     <outlet property="menuButton" destination="WCP-lF-WY5" id="tsM-b7-yhn"/>
+                                                    <outlet property="numberLabel" destination="lF5-PK-Za2" id="EYH-Im-NRh"/>
                                                     <outlet property="titleLabel" destination="93e-B5-mxP" id="8Z3-Jm-g95"/>
                                                     <outlet property="totalNumberLabel" destination="nDM-ze-GcB" id="iR9-yF-FuG"/>
                                                     <outlet property="unmarkedAttendanceData" destination="fE7-nJ-RXW" id="dO9-Pp-Jfn"/>
@@ -753,23 +780,22 @@
                     <navigationItem key="navigationItem" id="lq0-q1-gLd"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="attendanceCollection" destination="oRJ-18-Orq" id="7eQ-n1-9kz"/>
-                        <outlet property="calenderScroll" destination="68Q-Ga-jUH" id="9SB-aD-MDd"/>
-                        <outlet property="calenderView" destination="MCa-du-0km" id="ccZ-YB-EwV"/>
-                        <outlet property="customPickerView" destination="gf4-8U-MU0" id="zuN-3b-xP3"/>
-                        <outlet property="dashBoard" destination="VpM-yA-BeG" id="aVI-ed-lDq"/>
-                        <outlet property="dashLabel" destination="ydC-bS-3m4" id="gV2-2B-9p0"/>
-                        <outlet property="engineerView" destination="eB1-d5-JmI" id="nJa-Lx-rwm"/>
-                        <outlet property="fallData" destination="Qpo-Dc-he2" id="7Sd-iY-mVp"/>
-                        <outlet property="fallOutBackButton" destination="5Dv-U6-0me" id="K1i-G0-asf"/>
-                        <outlet property="fallOutCollection" destination="b57-QN-UFq" id="Dcw-ui-lv7"/>
-                        <outlet property="fallOutDateLabel" destination="qbc-xq-Je4" id="c3t-2S-Mjl"/>
-                        <outlet property="fallOutView" destination="bvn-kC-kL8" id="gft-Fj-tJ7"/>
-                        <outlet property="headerDateLabel" destination="2dD-Zu-j5i" id="a8a-w9-zsa"/>
-                        <outlet property="primaryView" destination="c0i-UC-K71" id="s1P-Aq-3py"/>
-                        <outlet property="secondaryView" destination="hV9-Ie-mKx" id="r8m-dW-h8L"/>
-                        <outlet property="slideBarBtn" destination="baY-y6-PV3" id="dhu-pI-PCB"/>
-                        <outlet property="slideEngineerView" destination="Ubg-vb-Irn" id="2yx-44-hWC"/>
+                        <outlet property="mAttendanceCollection" destination="oRJ-18-Orq" id="52J-qF-xUD"/>
+                        <outlet property="mCalendarActivityLoader" destination="wxm-8G-WpI" id="lXV-jM-4GZ"/>
+                        <outlet property="mCalenderScroll" destination="68Q-Ga-jUH" id="0Wm-NH-xzH"/>
+                        <outlet property="mCalenderView" destination="MCa-du-0km" id="hM1-KY-m50"/>
+                        <outlet property="mCustomPickerView" destination="gf4-8U-MU0" id="scy-dl-S6h"/>
+                        <outlet property="mDashBoard" destination="VpM-yA-BeG" id="r7d-b0-6ra"/>
+                        <outlet property="mDashLabel" destination="ydC-bS-3m4" id="t5w-bf-aKb"/>
+                        <outlet property="mEngineerProfileView" destination="Ubg-vb-Irn" id="24Z-B5-ZMp"/>
+                        <outlet property="mEngineerView" destination="eB1-d5-JmI" id="NNV-hv-zP7"/>
+                        <outlet property="mFallOutCollection" destination="b57-QN-UFq" id="6ej-DA-U2Z"/>
+                        <outlet property="mFallOutDateLabel" destination="qbc-xq-Je4" id="L8W-nW-Wic"/>
+                        <outlet property="mFallOutView" destination="bvn-kC-kL8" id="Dba-CV-Sqc"/>
+                        <outlet property="mHeaderDateLabel" destination="2dD-Zu-j5i" id="7kI-5e-ueh"/>
+                        <outlet property="mPrimaryView" destination="c0i-UC-K71" id="xvY-Ur-vlv"/>
+                        <outlet property="mSecondaryView" destination="hV9-Ie-mKx" id="x7s-hw-EZi"/>
+                        <outlet property="mSlideBarBtn" destination="baY-y6-PV3" id="lMg-kS-NRI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fek-NW-jzs" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,7 +10,7 @@ import UIKit
 
 class SlideMenuTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var mLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -12,7 +12,7 @@ class DashCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var NumberLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var totalNumberLabel: UILabel!
     @IBOutlet weak var markedLabel: UILabel!
     @IBOutlet weak var unmarkedLabel: UILabel!

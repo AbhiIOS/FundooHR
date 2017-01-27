@@ -10,33 +10,33 @@
 		053C46F15CBB067344F53A77 /* Pods_FundooHRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B06704F076442EAFF183E24 /* Pods_FundooHRTests.framework */; };
 		0A14911D1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14911C1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift */; };
 		0A5793C71DF81B2A00FF476C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793C61DF81B2A00FF476C /* AppDelegate.swift */; };
-		0A5793C91DF81B2A00FF476C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793C81DF81B2A00FF476C /* ViewController.swift */; };
+		0A5793C91DF81B2A00FF476C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793C81DF81B2A00FF476C /* LoginViewController.swift */; };
 		0A5793CC1DF81B2A00FF476C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5793CA1DF81B2A00FF476C /* Main.storyboard */; };
 		0A5793CF1DF81B2A00FF476C /* FundooHR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793CD1DF81B2A00FF476C /* FundooHR.xcdatamodeld */; };
 		0A5793D11DF81B2A00FF476C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A5793D01DF81B2A00FF476C /* Assets.xcassets */; };
 		0A5793D41DF81B2A00FF476C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5793D21DF81B2A00FF476C /* LaunchScreen.storyboard */; };
 		0A5793DF1DF81B2A00FF476C /* FundooHRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793DE1DF81B2A00FF476C /* FundooHRTests.swift */; };
 		0A5793EA1DF81B2A00FF476C /* FundooHRUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793E91DF81B2A00FF476C /* FundooHRUITests.swift */; };
+		0A6C77D71E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C77D61E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift */; };
 		0A6F0E2B1E14E1FC00EECF2C /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2A1E14E1FC00EECF2C /* Protocols.swift */; };
 		0A6F0E2D1E14E4D800EECF2C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */; };
 		0A6F0E2F1E14E70200EECF2C /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */; };
 		0A6F0E311E14E89900EECF2C /* DashboardServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E301E14E89900EECF2C /* DashboardServices.swift */; };
-		0A7ABBF71E1665110066D671 /* AttendanceFallOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7ABBF61E1665110066D671 /* AttendanceFallOutCollectionViewCell.swift */; };
 		0A7D59831DFBC451002A7116 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D59821DFBC451002A7116 /* DashboardViewController.swift */; };
 		0A7E77AC1E00FA660063BE0E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E77AB1E00FA660063BE0E /* File.swift */; };
 		0A7E77B01E0154AE0063BE0E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E77AF1E0154AE0063BE0E /* SWRevealViewController.m */; };
 		0A87608A1E1A3FBD00B77709 /* UnmarkedEmployee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */; };
+		0A8BB6391E3892CF003719DF /* Url.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A8BB6381E3892CF003719DF /* Url.plist */; };
 		0A8C345D1E1F4EEB00C88393 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C345C1E1F4EEB00C88393 /* LoginViewModel.swift */; };
 		0A8C345F1E1F4F0E00C88393 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C345E1E1F4F0E00C88393 /* LoginController.swift */; };
 		0A8C34611E1F4F5000C88393 /* LoginServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C34601E1F4F5000C88393 /* LoginServices.swift */; };
+		0AADDA131E335A3F00751BBC /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADDA121E335A3F00751BBC /* Utility.swift */; };
 		0AD1F1511E0261A8006BCFCD /* SlideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1F1501E0261A8006BCFCD /* SlideMenuTableViewCell.swift */; };
 		0AD1F1531E0262D2006BCFCD /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1F1521E0262D2006BCFCD /* SlideMenuViewController.swift */; };
 		0AFC5A951E04F3BF005654D6 /* AttendenceSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AFC5A921E04F3BF005654D6 /* AttendenceSelectorView.xib */; };
 		0AFC5A971E04F3BF005654D6 /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AFC5A941E04F3BF005654D6 /* CellView.xib */; };
 		0AFC5A9C1E051D45005654D6 /* AttendenceSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC5A9A1E051D45005654D6 /* AttendenceSelectorView.swift */; };
 		0AFC5A9D1E051D45005654D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC5A9B1E051D45005654D6 /* CellView.swift */; };
-		0AFC5BB21E079717006DD90C /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC5BB11E079716006DD90C /* Test.swift */; };
-		0AFC5BB41E081BC9006DD90C /* Calender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC5BB31E081BC9006DD90C /* Calender.swift */; };
 		1F6AE3803798ED211A8E1988 /* Pods_FundooHR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36ADAD227FE96ED635BD1048 /* Pods_FundooHR.framework */; };
 		BA2A26FF57626AE3C9691BE0 /* Pods_FundooHRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513D3B3221F7AE3D84525EFF /* Pods_FundooHRUITests.framework */; };
 /* End PBXBuildFile section */
@@ -62,7 +62,7 @@
 		0A14911C1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashCollectionViewCell.swift; path = ../DashCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A5793C31DF81B2A00FF476C /* FundooHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FundooHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5793C61DF81B2A00FF476C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
-		0A5793C81DF81B2A00FF476C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = FundooHR/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		0A5793C81DF81B2A00FF476C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = FundooHR/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		0A5793CB1DF81B2A00FF476C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A5793CE1DF81B2A00FF476C /* FundooHR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FundooHR.xcdatamodel; sourceTree = "<group>"; };
 		0A5793D01DF81B2A00FF476C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,28 +74,28 @@
 		0A5793E51DF81B2A00FF476C /* FundooHRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FundooHRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5793E91DF81B2A00FF476C /* FundooHRUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundooHRUITests.swift; sourceTree = "<group>"; };
 		0A5793EB1DF81B2A00FF476C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A6C77D61E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceFallOutCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A6F0E2A1E14E1FC00EECF2C /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		0A6F0E301E14E89900EECF2C /* DashboardServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardServices.swift; sourceTree = "<group>"; };
-		0A7ABBF61E1665110066D671 /* AttendanceFallOutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceFallOutCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A7D59821DFBC451002A7116 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		0A7E77AB1E00FA660063BE0E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		0A7E77AD1E0154AD0063BE0E /* FundooHR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FundooHR-Bridging-Header.h"; sourceTree = "<group>"; };
 		0A7E77AE1E0154AE0063BE0E /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		0A7E77AF1E0154AE0063BE0E /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarkedEmployee.swift; path = ../Model/UnmarkedEmployee.swift; sourceTree = "<group>"; };
+		0A8BB6381E3892CF003719DF /* Url.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Url.plist; sourceTree = "<group>"; };
 		0A8C345C1E1F4EEB00C88393 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0A8C345E1E1F4F0E00C88393 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		0A8C34601E1F4F5000C88393 /* LoginServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginServices.swift; sourceTree = "<group>"; };
+		0AADDA121E335A3F00751BBC /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		0AD1F1501E0261A8006BCFCD /* SlideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuTableViewCell.swift; path = ../SlideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		0AD1F1521E0262D2006BCFCD /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuViewController.swift; path = ../SlideMenuViewController.swift; sourceTree = "<group>"; };
 		0AFC5A921E04F3BF005654D6 /* AttendenceSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AttendenceSelectorView.xib; path = View/AttendenceSelectorView.xib; sourceTree = "<group>"; };
 		0AFC5A941E04F3BF005654D6 /* CellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CellView.xib; path = View/CellView.xib; sourceTree = "<group>"; };
 		0AFC5A9A1E051D45005654D6 /* AttendenceSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendenceSelectorView.swift; sourceTree = "<group>"; };
 		0AFC5A9B1E051D45005654D6 /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
-		0AFC5BB11E079716006DD90C /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
-		0AFC5BB31E081BC9006DD90C /* Calender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calender.swift; sourceTree = "<group>"; };
 		1B06704F076442EAFF183E24 /* Pods_FundooHRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FundooHRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36ADAD227FE96ED635BD1048 /* Pods_FundooHR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FundooHR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A869EEE84313939772014A5 /* Pods-FundooHRUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FundooHRUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FundooHRUITests/Pods-FundooHRUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +170,7 @@
 		0A5793C51DF81B2A00FF476C /* FundooHR */ = {
 			isa = PBXGroup;
 			children = (
+				0AADDA0F1E33599400751BBC /* FundooHRUtility */,
 				0A6F0E271E14E12600EECF2C /* Model */,
 				0A7D59811DFBC401002A7116 /* View */,
 				0A6F0E241E14E01100EECF2C /* ViewModel */,
@@ -182,6 +183,7 @@
 				0A5793D21DF81B2A00FF476C /* LaunchScreen.storyboard */,
 				0A5793D51DF81B2A00FF476C /* Info.plist */,
 				0A5793CD1DF81B2A00FF476C /* FundooHR.xcdatamodeld */,
+				0A8BB6381E3892CF003719DF /* Url.plist */,
 			);
 			path = FundooHR;
 			sourceTree = "<group>";
@@ -246,7 +248,7 @@
 				0AFC5A9B1E051D45005654D6 /* CellView.swift */,
 				0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */,
 				0A5793C61DF81B2A00FF476C /* AppDelegate.swift */,
-				0A5793C81DF81B2A00FF476C /* ViewController.swift */,
+				0A5793C81DF81B2A00FF476C /* LoginViewController.swift */,
 				0A7E77AB1E00FA660063BE0E /* File.swift */,
 				0A7D59821DFBC451002A7116 /* DashboardViewController.swift */,
 				0A7E77AE1E0154AE0063BE0E /* SWRevealViewController.h */,
@@ -254,12 +256,18 @@
 				0AD1F1501E0261A8006BCFCD /* SlideMenuTableViewCell.swift */,
 				0AD1F1521E0262D2006BCFCD /* SlideMenuViewController.swift */,
 				0A14911C1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift */,
+				0A6C77D61E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift */,
 				0A7E77AD1E0154AD0063BE0E /* FundooHR-Bridging-Header.h */,
-				0AFC5BB11E079716006DD90C /* Test.swift */,
-				0AFC5BB31E081BC9006DD90C /* Calender.swift */,
-				0A7ABBF61E1665110066D671 /* AttendanceFallOutCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0AADDA0F1E33599400751BBC /* FundooHRUtility */ = {
+			isa = PBXGroup;
+			children = (
+				0AADDA121E335A3F00751BBC /* Utility.swift */,
+			);
+			path = FundooHRUtility;
 			sourceTree = "<group>";
 		};
 		764357EB9CC3C00BAB4220AC /* Pods */ = {
@@ -396,6 +404,7 @@
 				0A5793D41DF81B2A00FF476C /* LaunchScreen.storyboard in Resources */,
 				0A5793D11DF81B2A00FF476C /* Assets.xcassets in Resources */,
 				0AFC5A951E04F3BF005654D6 /* AttendenceSelectorView.xib in Resources */,
+				0A8BB6391E3892CF003719DF /* Url.plist in Resources */,
 				0A5793CC1DF81B2A00FF476C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,19 +574,18 @@
 				0AD1F1511E0261A8006BCFCD /* SlideMenuTableViewCell.swift in Sources */,
 				0A7E77B01E0154AE0063BE0E /* SWRevealViewController.m in Sources */,
 				0A8C34611E1F4F5000C88393 /* LoginServices.swift in Sources */,
-				0A5793C91DF81B2A00FF476C /* ViewController.swift in Sources */,
-				0A7ABBF71E1665110066D671 /* AttendanceFallOutCollectionViewCell.swift in Sources */,
+				0A5793C91DF81B2A00FF476C /* LoginViewController.swift in Sources */,
 				0AFC5A9C1E051D45005654D6 /* AttendenceSelectorView.swift in Sources */,
+				0A6C77D71E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift in Sources */,
 				0A7E77AC1E00FA660063BE0E /* File.swift in Sources */,
-				0AFC5BB21E079717006DD90C /* Test.swift in Sources */,
 				0A6F0E2D1E14E4D800EECF2C /* DashboardViewModel.swift in Sources */,
 				0A8C345F1E1F4F0E00C88393 /* LoginController.swift in Sources */,
 				0AD1F1531E0262D2006BCFCD /* SlideMenuViewController.swift in Sources */,
 				0A5793CF1DF81B2A00FF476C /* FundooHR.xcdatamodeld in Sources */,
 				0AFC5A9D1E051D45005654D6 /* CellView.swift in Sources */,
+				0AADDA131E335A3F00751BBC /* Utility.swift in Sources */,
 				0A6F0E2B1E14E1FC00EECF2C /* Protocols.swift in Sources */,
 				0A14911D1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift in Sources */,
-				0AFC5BB41E081BC9006DD90C /* Calender.swift in Sources */,
 				0A5793C71DF81B2A00FF476C /* AppDelegate.swift in Sources */,
 				0A7D59831DFBC451002A7116 /* DashboardViewController.swift in Sources */,
 				0A8C345D1E1F4EEB00C88393 /* LoginViewModel.swift in Sources */,

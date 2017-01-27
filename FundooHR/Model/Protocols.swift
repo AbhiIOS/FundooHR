@@ -17,9 +17,9 @@ protocol ViewModelProtocol {
     
     func recieveMonthlyAttendanceDataFromController(perDayAttendance1:NSArray, totalEmp:Int?)
     
-    func recieveUnmarkedAttendanceDataFromControlletr(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?)
+    //func recieveUnmarkedAttendanceDataFromControlletr(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?)
     
-    func recieveMonthlyAttendanceDataFromController11(perDayAttendance1:NSArray, totalEmp:Int?)
+    //func recieveMonthlyAttendanceDataFromController11(perDayAttendance1:NSArray, totalEmp:Int?)
     
     func errorMessageVM()
 }
@@ -32,9 +32,9 @@ protocol ControllerProtocol {
     
     func recieveMonthlyAttendanceDataFromServices(perDayAttendance1:NSArray, totalEmp:Int?)
     
-    func recieveUnmarkedAttendanceDataFromServices(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?)
+    //func recieveUnmarkedAttendanceDataFromServices(unmarkedEmp1:[UnmarkedEmployee], totalEmployee2:String?)
     
-    func recieveMonthlyAttendanceDataFromServices11(perDayAttendance1:NSArray, totalEmp:Int?)
+    //func recieveMonthlyAttendanceDataFromServices11(perDayAttendance1:NSArray, totalEmp:Int?)
     
     func errorMessageCNTRLR()
 }
