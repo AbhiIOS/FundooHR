@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>LoginUrl</key>
-	<string>http://192.168.0.6:3000/login</string>
+	<string>http://192.168.0.10:3000/login</string>
 	<key>RestUrl</key>
-	<string>http://192.168.0.6:3000/</string>
+	<string>http://192.168.0.10:3000/</string>
 </dict>
 </plist>

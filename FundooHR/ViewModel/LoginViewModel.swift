@@ -11,13 +11,13 @@
 
 import UIKit
 
-class LoginViewModel: NSObject, LoginVMProtocol {
+class LoginViewModel: NSObject, LoginViewModelProtocol {
     
     //Var to store object of LoginController
     var mLoginCntrllr:LoginController?
     
     //Var to store object of LoginViewController
-    var mLoginVC:LoginViewController?
+    var mLoginVC:LoginViewProtocol?
     
     //Var holds token data
     var mTokn:String?
@@ -35,7 +35,7 @@ class LoginViewModel: NSObject, LoginVMProtocol {
     var mPasssword:String?
     
     //Constructor of LoginViewModel Class
-    init(loginViewControllerObj:LoginViewController, emailID:String, password:String) {
+    init(loginViewControllerObj:LoginViewProtocol, emailID:String, password:String) {
         super.init()
         mLoginVC = loginViewControllerObj
         mEmail = emailID
@@ -44,9 +44,9 @@ class LoginViewModel: NSObject, LoginVMProtocol {
     }
     
     //Method calling a function of LoginController
-    func callLoginVM() -> Void {
+    func sendLoginCredentials() -> Void {
         
-        mLoginCntrllr?.callLoginContrllr(email: mEmail!, password: mPasssword!)
+        mLoginCntrllr?.userLoginAccess(email: mEmail!, password: mPasssword!)
     }
     
     //Validating User Login
@@ -60,7 +60,7 @@ class LoginViewModel: NSObject, LoginVMProtocol {
         }
         else
         {
-            self.callLoginVM()
+            self.sendLoginCredentials()
         }
     }
     

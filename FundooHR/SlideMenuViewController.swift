@@ -41,8 +41,11 @@ class SlideMenuViewController: UIViewController {
         //set SlideTableView datasource to the self
         mSlideTableView.dataSource = self
         
+        //set SlideTableView delegate to the self
+        mSlideTableView.delegate = self
+        
         //Fetching the emailId From userDefaults & storing the return value to a variable
-        let emailid = mUtil?.fetchEmail()
+        let emailid = mUtil?.getUserDefaultData(key: "emailID")
         
         //set text to label
         mSliderEmailLabel.text = emailid!
@@ -58,11 +61,27 @@ class SlideMenuViewController: UIViewController {
     //Method Executes when Log Out Button is pressed
     @IBAction func logOut(_ sender: Any) {
         
-       //Instantiating the View Controller by using StoryboardID
-       let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+        let alert = UIAlertController(title: "Alert", message: "Do you want to logout", preferredStyle: UIAlertControllerStyle.alert)
         
-        self.present(viewController, animated: false, completion: nil)
+        let yes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default)
+        {
+            UIAlertAction in
+            
+            //Instantiating the View Controller by using StoryboardID
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+            
+            self.present(viewController, animated: false, completion: nil)
+        }
         
+        let cancel = UIAlertAction(title: "No", style: UIAlertActionStyle.default)
+        {
+            UIAlertAction in
+        }
+        
+        alert.addAction(yes)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    
     }
     
     
@@ -75,13 +94,21 @@ class SlideMenuViewController: UIViewController {
         
             var indexpath:IndexPath?
             indexpath = mSlideTableView.indexPathForSelectedRow
+        if indexpath?.row == 0 {
             let dash = segue.destination as! DashboardViewController
             let name = mArray[(indexpath?.row)!]
             dash.mFieldName = name
             dash.mBoolVar = false
-            dash.mBool = false
+            dash.mCheck = false
             dash.mIndex = (indexpath?.row)!
+        }
         
+//        let dash = segue.destination as! DashboardViewController
+//        let name = mArray[(indexpath?.row)!]
+//        dash.mFieldName = name
+//        dash.mBoolVar = false
+//        dash.mBool = false
+//        dash.mIndex = (indexpath?.row)!
         
     }
     
@@ -109,5 +136,24 @@ extension SlideMenuViewController:UITableViewDataSource
         cell.mLabel.text = mArray[indexPath.row]
         return cell
         
+    }
+}
+
+extension SlideMenuViewController:UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0
+        {
+            self.performSegue(withIdentifier: "dashboard", sender: nil)
+            
+        }
+        if indexPath.row == 2 {
+            
+            self.performSegue(withIdentifier: "calendar", sender: nil)
+//            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "calendarViewController")
+//            
+//            self.present(viewController, animated: false, completion: nil)
+        }
     }
 }

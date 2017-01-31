@@ -14,7 +14,7 @@
 import UIKit
 import CoreData
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, LoginViewProtocol {
     
     //Outlet of Company image
     @IBOutlet weak var mBridgeLabImage: UIImageView!
@@ -120,7 +120,7 @@ class LoginViewController: UIViewController {
                 mLognVM = LoginViewModel(loginViewControllerObj: self, emailID: mEmail!, password: password!)
                 self.mActivityLoader.isHidden = false
                 self.mActivityLoader.startAnimating()
-                mLognVM?.callLoginVM()
+                mLognVM?.sendLoginCredentials()
             }
             else
             {

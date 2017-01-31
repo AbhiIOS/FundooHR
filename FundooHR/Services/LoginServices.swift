@@ -29,7 +29,7 @@ class LoginServices: NSObject {
     }
     
     //Method makes a REST call for Login
-    func userLogin(Useremail:String, userPswd:String) -> Void {
+    func userLoginRestService(Useremail:String, userPswd:String) -> Void {
         
         let mUtil = Utility()
         let mIPAddr = mUtil.populateData(keyUrl: "LoginUrl")

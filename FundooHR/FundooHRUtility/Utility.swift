@@ -57,12 +57,12 @@ class Utility: UIViewController {
         
     }
     
-    func fetchEmail() -> String
+    func getUserDefaultData(key:String) -> String
     {
         let preferences = UserDefaults.standard
-        let mEmailIdLabel = preferences.string(forKey: "emailID")
-        print(mEmailIdLabel!)
-        return mEmailIdLabel!
+        let mData = preferences.string(forKey: key)
+        print(mData!)
+        return mData!
     }
     
     func fetchToken() -> String
@@ -80,5 +80,15 @@ class Utility: UIViewController {
         let url1 = dict?[keyUrl] as! String
         print(url1)
         return url1
+    }
+    
+    func userDefaultsData(obj:DashboardViewModel) -> Void {
+        
+        let preferences = UserDefaults.standard
+        
+        preferences.setValuesForKeys(["dashVm": obj])
+        
+        //  Save to disk
+        preferences.synchronize()
     }
 }

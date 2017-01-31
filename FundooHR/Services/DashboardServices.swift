@@ -2,6 +2,12 @@
 //  DashboardServices.swift
 //  FundooHR
 //
+//  Purpose:
+//  1. It is a Services class of Dashboard
+//  2. It makes a REST call to get Dashboard Data & Monthly Attendance Data
+//  3. It implements a Delegate pattern to pass data from DashboardServices 
+//     to DashboardController
+
 //  Created by BridgeLabz Solutions LLP  on 12/29/16.
 //  Copyright © 2016 BridgeLabz Solutions LLP . All rights reserved.
 //
@@ -12,55 +18,75 @@ import Alamofire
 
 class DashboardServices: NSObject {
     
-    var pDelegate:ControllerProtocol?
+    //Var to store delegate(protocol) object
+    var pDelegate:DashboardControllerProtocol?
     
-    
+    //Var to store data of number of fallout employee
     var mFallOutNum:Int?
+    
+    //Var to store number of total employee
     var mTotalEmployee:Int?
+    
+    //Var to store data of marked attendance
     var mMarked:Int?
+    
+    //Var to store data of unmarked attendance
     var mUnmarked:String?
+    
+    //Var to store data of number of leave
     var mLeave:String?
     
-    var mTotalEmployee2:String?
-    var mUnmarkedNumber:String?
-    var mUnmarkedEmployee:NSArray = []
-    var mUnmark:[UnmarkedEmployee]?
-    
+    //Var to store data of monthly attendance in array
     var mMonthlyAttendance:NSArray = []
+    
+    //Var to store data of each day attendance in array
     var mPerDayAttendance:NSMutableArray = []
+    
+    //Var to store number of total employee
     var mTotalEmp:Int?
+    
+    //Var to store token
     var mToken:String?
+    
+    //Var to store timestamp
     var mTimeStamp:Int?
+    
+    //Var to store timestamp
     var mTimeStamp2:CLong?
+    
+    //Var to store IP Address
     var mIPAddr:String?
     
-    var mMonthArray:NSMutableArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    
-    var mYearArray:NSMutableArray = ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037"]
-    
+    //Initialised utility object
     var mUtil = Utility()
     
-    
-    init(controllerProtocolObj:ControllerProtocol) {
+    //Constructor of DashboardServices
+    init(controllerProtocolObj:DashboardControllerProtocol) {
         super.init()
         pDelegate = controllerProtocolObj
     }
     
-    func CallToService() -> Void {
+    //Method making a REST call to get Dashboard data from server
+    func dashboardRestService() -> Void {
         
-        self.pDelegate?.recievePickerDataFromServices(arrayMonth: self.mMonthArray, arrayYear: self.mYearArray)
-        
+        //Get IP Address from Plist
         mIPAddr = mUtil.populateData(keyUrl: "RestUrl")
-        mToken = mUtil.fetchToken()
         
+        //Get token value from UserDefaults
+        mToken = mUtil.getUserDefaultData(key: "tokenData")
+        
+        //Generating timestamp from current date
         mTimeStamp = Int(Date().timeIntervalSince1970 * 1000)
         print(mTimeStamp!)
         
+        //Making REST call
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let url = URL(string: "\(mIPAddr!)readDashboardData?token=\(mToken!)&timeStamp=\(mTimeStamp!)")!
+        let url = URL(string: "\(mIPAddr!)readDashboardData?timeStamp=\(mTimeStamp!)")!
+        var request = URLRequest(url: url)
+        request.addValue(mToken!, forHTTPHeaderField: "x-token")
         
-        let task = session.dataTask(with: url, completionHandler: {
+        let task = session.dataTask(with: request, completionHandler: {
             (data, response, error) in
             
             if error != nil {
@@ -79,22 +105,30 @@ class DashboardServices: NSObject {
                         
                         print(dashboardData)
                         
+                        //Saving timestamp from json
                         self.mTimeStamp2 = dashboardData["timeStamp"] as? CLong
                         print(self.mTimeStamp2!)
+                        
+                        //Get data of attendance summary from json
                         let attendanceSummary = dashboardData["attendanceSummary"] as! NSDictionary
+                        
+                        //Saving marked attendance data from json
                         self.mMarked = attendanceSummary["marked"] as? Int
+                        //Saving unmarked attendance data from json
                         self.mUnmarked = attendanceSummary["unmarked"] as? String
                         
+                        //Get data of attendance fallout from json
                         let attendanceFallout = dashboardData["attendanceFallout"] as! NSDictionary
+                        
                         self.mFallOutNum = attendanceFallout["falloutEmployee"] as? Int
                         self.mTotalEmployee = attendanceFallout["totalEmployee"] as? Int
                         
                         let leaveSummary = dashboardData["leaveSummary"] as! NSDictionary
                         self.mLeave = leaveSummary["leave"] as? String
                         
-                        self.pDelegate?.recieveDashboardDataFromServices(markedData: self.mMarked, unmarkedData: self.mUnmarked, attendanceFallNumber: self.mFallOutNum, leave1: self.mLeave, totalEmployee11: self.mTotalEmployee, timeStamp: self.mTimeStamp2)
+                        self.pDelegate?.recieveDashboardData(markedData: self.mMarked, unmarkedData: self.mUnmarked, attendanceFallNumber: self.mFallOutNum, leave1: self.mLeave, totalEmployee11: self.mTotalEmployee, timeStamp: self.mTimeStamp2)
                         
- 
+                        
                     }
                     
                 } catch {
@@ -102,66 +136,12 @@ class DashboardServices: NSObject {
                     print("error in JSONSerialization")
                     
                 }
-                
-                
             }
-            
         })
         task.resume()
         
     }
     
-    func callToServices1(timeStamp:Int) -> Void {
-        
-        let config = URLSessionConfiguration.default // Session Configuration
-        let session = URLSession(configuration: config) // Load configuration into Session
-        let url = URL(string: "\(mIPAddr!)readMonthlyAttendanceSummary?token=\(mToken!)&timeStamp=\(timeStamp)")!
-        
-        let task = session.dataTask(with: url, completionHandler: {
-            (data, response, error) in
-            
-            if error != nil {
-                
-                print(error!.localizedDescription)
-                
-            } else {
-                
-                do {
-                    
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    {
-                        
-                        //Implement your logic
-                        let monthlyAttendance = json as NSDictionary
-                        self.mTotalEmp = monthlyAttendance["totalEmployee"] as? Int
-                        self.mMonthlyAttendance = monthlyAttendance["attendance"] as! NSArray
-                        for ary in self.mMonthlyAttendance
-                        {
-                            let attendance = ary as! NSDictionary
-                            self.mPerDayAttendance.add(attendance)
-                            
-                        }
-                        print(self.mPerDayAttendance)
-                        let sortedArray = self.mPerDayAttendance.sorted{(($0 as! NSDictionary)["day"]as? Int)!<(($1 as! NSDictionary)["day"]as? Int)!}
-                        print(sortedArray)
-                        
-                        self.pDelegate?.recieveMonthlyAttendanceDataFromServices(perDayAttendance1: sortedArray as NSArray, totalEmp: self.mTotalEmp)
-                    }
-                    
-                } catch {
-                    
-                    print("error in JSONSerialization")
-                    
-                }
-                
-                
-            }
-            
-        })
-        task.resume()
-        
-    }
-    
-    }
+}
     
 

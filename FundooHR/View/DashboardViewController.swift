@@ -3,24 +3,39 @@
 //  FundooHR
 //
 //  Purpose:
-//  1. This is the main UIClass which holds all IBOutlets & IBActions related to Dashboard
+//  1. This is the main UIClass which holds all IBOutlets & IBActions related to 
+//     dashboard
 //  2. It listens to all UICalls
-//  3. It implements local library for calendar to display calendarView
-//  4. It holds local library for slider Menu
+//  3. It holds local library for slider Menu
 
 //  Created by BridgeLabz Solutions LLP  on 12/10/16.
 //  Copyright © 2016 BridgeLabz Solutions LLP . All rights reserved.
 //
 
 import UIKit
-import JTAppleCalendar
 import Firebase
 
-class DashboardViewController: UIViewController {
+enum DashboardCollectionEnum:Int {
+    case ATTENDANCE_SUMMARY = 0
+    case ATTENDANCE_FALLOUT
+    case LEAVE_SUMMARY
+    case ENGINEERS
+    case CLIENTS
+    case REPORTS
+}
 
-    //Outlet of CalendarView
-    @IBOutlet weak var mCalenderView: JTAppleCalendarView!
-    
+enum DashBoardTableView:Int{
+    case EMAILID = 0
+    case DASHBOARD
+    case ENGINEERS
+    case ATTENDANCESUMMARY
+    case REPORTS
+    case CLIENTS
+    case LOGOUT
+}
+
+class DashboardViewController: UIViewController, DashboardViewProtocol {
+
     //Outlet of Attendance Fallout Collection View
     @IBOutlet weak var mFallOutCollection: UICollectionView!
     
@@ -70,52 +85,37 @@ class DashboardViewController: UIViewController {
     @IBOutlet weak var mFallOutBackButton: UIButton!
     
     //Outlet of Activity Indicator
-    @IBOutlet weak var mCalendarActivityLoader: UIActivityIndicatorView!
+    @IBOutlet weak var mActivityLoader: UIActivityIndicatorView!
+    @IBOutlet weak var mSlideMenu: UIView!
+    @IBOutlet weak var mSlideTableView: UITableView!
+    @IBOutlet weak var mSlideMenuContraint: NSLayoutConstraint!
     
-    
+    var mFlag = false
+    var mCustomView = UIView()              //creating uiview type variable
     var mFieldName:String? = nil            //Var to store View Name
     var mIndex:Int = 0                      //Var to store index
-    var mStrMonth:String?                   //Var to store Month Name
-    var mStrYear:String?                    //Var to store Year
     var mDate:String?                       //Var to store Date
-    var mDateChange:Bool = false            //Var to store boolean Value
     var mDashVM:DashboardViewModel?         //Var to object of DashboardViewModel
-    var mMonthArray:NSMutableArray?         //Var to store months name in form of array
-    var mYearArray:NSMutableArray?          //Var to store year in form of array
-    var mStartDate:Date?                    //Var to store Date
     var mDateChanged:Bool = true            //Var to store boolean value
-    var mTokenStr:String?                   //Var to store token Value
     var mDate1:Date?                        //Var to store date
     var mBoolVar:Bool = true                //Var to store boolean Value
-    var mBool:Bool = true                   //Var to store boolean Value
+    var mCheck:Bool = true                   //Var to store boolean Value
     var mUtil = Utility()                   //Var to hold Utility object
+    
     
     //Executes when screen loads
     override func viewDidLoad() {
         super.viewDidLoad()
         
-          //Initialise DashboardViewModel
-          mDashVM = DashboardViewModel(dashboardVCObj: self)
-        
-        if mBoolVar {
-            
-            mDashVM?.CallToViewModel()
+        if mDashVM == nil {
+            mActivityLoader.startAnimating()
+            mDashVM = DashboardViewModel(dashboardProtocolObj: self)
+            mDashVM?.getDashboardData()
         }
         
-        //Switching between the Views
-        switch mIndex {
-        case 0:
-            self.view.bringSubview(toFront: mDashBoard)
-            break
-        case 1:
-            self.view.bringSubview(toFront: mEngineerProfileView)
-            break
-        case 2:
-            self.view.bringSubview(toFront: mPrimaryView)
-            break
-        default:
-            self.view.bringSubview(toFront: mDashBoard)
-        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
         //Hiding the navigation bar
         self.navigationController?.navigationBar.isHidden = true
@@ -123,11 +123,6 @@ class DashboardViewController: UIViewController {
         view.backgroundColor = UIColor(colorWithHexValue: 0xD8D1C7).withAlphaComponent(0.8)
         self.view.addSubview(view)
         
-        //set customPickerView datasource to the self
-        mCustomPickerView.dataSource = self
-        
-        //set customPickerView delegate to the self
-        mCustomPickerView.delegate = self
         
         //Initialise Date Formatter
         let formatter = DateFormatter()
@@ -139,75 +134,112 @@ class DashboardViewController: UIViewController {
         formatter1.setLocalizedDateFormatFromTemplate("yyyy")
         formatter2.setLocalizedDateFormatFromTemplate("dd MMMM yyyy")
         
-        //Getting Month Name from current Date
-        let currentMonth = formatter.string(from: Date())
-        //Getting Year from Current Date
-        let currentYear = formatter1.string(from: Date())
         //set Date to dateLabel
         mHeaderDateLabel.text = formatter2.string(from: Date())
         
-        mMonthArray = mMonthsAry
-        mYearArray = mYearAry
-        print(mMonthArray!.count)
-        print(mYearArray!.count)
         
-        //Setting current Month Name to the picker View
-        for var i in 0..<(mMonthArray!.count) {
-            if mMonthArray!.object(at: i) as! String == currentMonth {
-                mCustomPickerView.selectRow(i, inComponent: 0, animated: true)
-                break
-            }
-        }
-        
-        //Setting current year to the picker View
-        for var j in 0..<(mYearArray!.count) {
-            if mYearArray!.object(at: j) as! String == currentYear {
-                mCustomPickerView.selectRow(j, inComponent: 1, animated: true)
-                break
-            }
-        }
-        
-        // This Section is for Calender View
-        mCalenderView.layer.borderWidth = 3
-        mCalenderView.layer.borderColor = UIColor(red: 180/255, green: 221/255, blue: 239/255, alpha: 1).cgColor
-        mCalenderView.layer.masksToBounds = false
-        
-        mUtil.setShadowAttribute(myView: mCalenderView, shadowOpacity: 0.6, shadowRadius: 2.0)
-        
-        //set calendarview datasource to the self
-        mCalenderView.dataSource = self
-        //set calendarView delegate to the self
-        mCalenderView.delegate = self
-        
-        //Registring cellView xib
-        mCalenderView.registerCellViewXib(file: "CellView") // Registering your cell is manditory
-        
-        // Add this new line
-        mCalenderView.cellInset = CGPoint(x: 0, y: 0)
-
-        
-        mSlideBarBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+       // mSlideBarBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
         
         mUtil.setShadowAttribute(myView: mSecondaryView, shadowOpacity: 0.5, shadowRadius: 2.0)
         
         if mFieldName != nil {
+            
             mDashLabel.text = mFieldName
         }
         
-        //set Fallout Collection datasource to the self
-        mFallOutCollection.dataSource = self
+        mSlideTableView.dataSource = self
+        mSlideTableView.delegate = self
+        
+            }
+    
+    @IBAction func mSlideMenuBtn(_ sender: Any) {
+        
+        //changing the custom view's size while we change to landscape mode
+        print("views width",view.frame.width)
+        mCustomView.frame = CGRect.init(x: mSlideMenu.frame.width, y: 0, width: view.frame.width-mSlideMenu.frame.width, height: view.frame.height)
+        mCustomView.backgroundColor = UIColor.clear
+        
+        if(mFlag){
+            mSlideMenuContraint.constant = -250
+            //1st case of removing tap gesture(papre) when we click on the icon
+            
+            removeGestureRecognizer()
+            
+        }else{
+            //enabling the activity indictor
+            mSlideMenuContraint.constant = 0
+            self.view.addSubview(mCustomView)
+            mCustomView.alpha = 0.5
+            addGestureRecognizer()
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        mFlag = !mFlag
+        tableviewReload()
 
-        //set Attendance Collection datasource to the self
-        self.mAttendanceCollection.dataSource = self
-        
-        
     }
     
+    //function to rotate the screen
+    func rotated() {
+        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            mCustomView.frame = CGRect.init(x: mSlideMenu.frame.width, y: 0, width: view.frame.width-mSlideMenu.frame.width, height: view.frame.height)
+            mCustomView.backgroundColor = UIColor.clear
+        }
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+            print("Portrait")
+            print("views width",view.frame.width)
+            mCustomView.frame = CGRect.init(x: mSlideMenu.frame.width, y: 0, width: view.frame.width-mSlideMenu.frame.width, height: view.frame.height)
+            mCustomView.backgroundColor = UIColor.clear
+        }
+    }
+    
+    //add the gesture recognizer when the menu button is tapped
+    func addGestureRecognizer(){
+        let lTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
+        self.mCustomView.addGestureRecognizer(lTapGesture)
+    }
+    
+    //remove gesture recognizer after opening the slidemenu
+    func removeGestureRecognizer(){
+        for recognizer in mAttendanceCollection.gestureRecognizers ?? [] {
+            mCustomView.removeGestureRecognizer(recognizer)
+        }
+    }
+    
+    //called by addGestureRecognizer method
+    func tapBlurButton(_ sender: UIButton) {
+        mSlideMenuContraint.constant = -300
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        mFlag = !mFlag
+        //to remove custom view after removing slidemenu
+        self.mCustomView.removeFromSuperview()
+        mFlag = !mFlag
+        
+        //3rd case of removing  gesture when we click on collectionview
+        removeGestureRecognizer()
+    }
+
+    //reload tableview data when the data is loaded into it
+    func tableviewReload(){
+        //disabling the activity indictor
+        
+        self.mSlideTableView.reloadData()
+    }
+
+    
+    //Reload attendance Collection
     func reloadAttendance() -> Void {
-        mBool = false
+        mCheck = false
+        mActivityLoader.stopAnimating()
+        //set Attendance Collection datasource to the self
+        self.mAttendanceCollection.dataSource = self
         mAttendanceCollection.reloadData()
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
@@ -225,8 +257,8 @@ class DashboardViewController: UIViewController {
     
     //Method Executes when Menu Button is pressed
     @IBAction func menuBtn(_ sender: Any) {
-        self.view.bringSubview(toFront: mPrimaryView)
-        self.mDashLabel.text = "Attendance"
+        
+        self.performSegue(withIdentifier: "calendar", sender: nil)
     }
     
     //Method Executes when Back Button is pressed
@@ -252,36 +284,26 @@ extension DashboardViewController : UICollectionViewDataSource
 {
     //Set number of section in collection View
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == mAttendanceCollection {
-            return 1
-        }
         
-        if collectionView == mFallOutCollection {
-            return 1
-        }
-        return 0
+      return 1
         
     }
     
     //Set number of cells in a section of collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == mAttendanceCollection {
-            if mBool {
-                return 0
-            }
-            else{return 6}
-        }
         
-        if collectionView == mFallOutCollection {
-            return 4
+        if mCheck
+        {
+         return 0
         }
-        return 0
+        else{return 6}
+        
     }
     
     //Configuring the cell of a collection view
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if collectionView == mAttendanceCollection {
+        //if collectionView == mAttendanceCollection {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "attendanceSummary", for: indexPath) as! DashCollectionViewCell
             
             //Initialise Date Formatter
@@ -293,16 +315,16 @@ extension DashboardViewController : UICollectionViewDataSource
             
             switch indexPath.row {
                 //for 1st cell
-            case 0:
+            case DashboardCollectionEnum.ATTENDANCE_SUMMARY.rawValue:
                 mUtil.configureCell(cell: cell, title: false, marked: false, unmarked: false, number: true, date: false, totNumber: true, markedData: false, unmarkedData: false, menu: true)
                 cell.markedAttendanceData.layer.cornerRadius = 18.65
                 cell.unmarkedAttendanceData.layer.cornerRadius = 18.65
-                cell.markedAttendanceData.text = mMarkedAttdendance
-                cell.unmarkedAttendanceData.text = mUnmarkedAttendance
+                cell.markedAttendanceData.text = mDashVM?.mMarkedAttdendance
+                cell.unmarkedAttendanceData.text = mDashVM?.mUnmarkedAttendance
                 
-                if String(describing: mJsonTimeStamp) != "nil"
+                if String(describing: mDashVM?.mJsonTimeStamp) != "nil"
                 {
-                    mDate1 = Date.init(timeIntervalSince1970: Double((mJsonTimeStamp)! / 1000))
+                    mDate1 = Date.init(timeIntervalSince1970: Double((mDashVM?.mJsonTimeStamp)! / 1000))
                     print(mDate1!)
                     cell.dateLabel.text = formatter.string(from: mDate1! as Date)
                 }
@@ -316,23 +338,31 @@ extension DashboardViewController : UICollectionViewDataSource
                 break
                
                 //for 2nd cell
-            case 1:
+            case DashboardCollectionEnum.ATTENDANCE_FALLOUT.rawValue:
                 mUtil.configureCell(cell: cell, title: false, marked: true, unmarked: true, number: false, date: false, totNumber: false, markedData: true, unmarkedData: true, menu: false)
                 cell.titleLabel.text = "Attendance Fallout"
-                cell.numberLabel.text = mAttendanceFallNumberLabel
-                let str = mTotalEmployee
+                cell.numberLabel.text = mDashVM?.mAttendanceFallNumberLabel
+                let str = mDashVM?.mTotalEmployee
+                if str == nil {
+                    mUtil.displayErrorMessage(message: "Something Wrong Happened", view: self)
+                    
+                    let when = DispatchTime.now() + 4
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                    exit(0)
+                    }  
+                }
                 print(str!)
                 cell.totalNumberLabel.text = "Out of "+str!
                 let mFormatter = DateFormatter()
                 mFormatter.dateFormat = "MMMM yyyy"
-                cell.dateLabel.text = mFormatter.string(from: mDate1!)
+                cell.dateLabel.text = mFormatter.string(from: mDate1! as Date)
                 break
                 
                 //for 3rd cell
-            case 2:
+            case DashboardCollectionEnum.LEAVE_SUMMARY.rawValue:
                 mUtil.configureCell(cell: cell, title: false, marked: true, unmarked: true, number: false, date: false, totNumber: false, markedData: true, unmarkedData: true, menu: false)
                 cell.titleLabel.text = "Leave Summary"
-                cell.numberLabel.text = mLeave
+                cell.numberLabel.text = mDashVM?.mLeave
                 cell.totalNumberLabel.text = "Uptill"
                 cell.totalNumberLabel.textColor = UIColor(colorWithHexValue: 0x6FB8D9)
                 let mFormatter = DateFormatter()
@@ -341,7 +371,7 @@ extension DashboardViewController : UICollectionViewDataSource
                 break
                 
                 //for 4th cell
-            case 3:
+            case DashboardCollectionEnum.ENGINEERS.rawValue:
                 mUtil.configureCell(cell: cell, title: true, marked: true, unmarked: true, number: false, date: true, totNumber: true, markedData: true, unmarkedData: true, menu: false)
                 
                 cell.numberLabel.text = "Engineers"
@@ -349,7 +379,7 @@ extension DashboardViewController : UICollectionViewDataSource
                 break
                 
                 //for 5th cell
-            case 4:
+            case DashboardCollectionEnum.CLIENTS.rawValue:
                 mUtil.configureCell(cell: cell, title: true, marked: true, unmarked: true, number: false, date: true, totNumber: true, markedData: true, unmarkedData: true, menu: false)
                 
                 cell.numberLabel.text = "Clients"
@@ -357,7 +387,7 @@ extension DashboardViewController : UICollectionViewDataSource
                 break
                 
                 //for 6th cell
-            case 5:
+            case DashboardCollectionEnum.REPORTS.rawValue:
                 mUtil.configureCell(cell: cell, title: true, marked: true, unmarked: true, number: false, date: true, totNumber: true, markedData: true, unmarkedData: true, menu: false)
                 
                 cell.numberLabel.text = "Reports"
@@ -370,167 +400,92 @@ extension DashboardViewController : UICollectionViewDataSource
             return cell
 
         }
-        
-        if collectionView == mFallOutCollection {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "fallOutCell", for: indexPath) as! AttendanceFallOutCollectionViewCell
-            
-            return cell
-            
-        }
-        else{
-            return AttendanceFallOutCollectionViewCell.copy() as! UICollectionViewCell
-        }
-        
-                    }
-    
     
 }
 
-//MARK:DATASOURCE METHODS FOR JTAPPLECALENDARVIEW
-
-extension DashboardViewController: JTAppleCalendarViewDataSource {
-    func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("MMMMyyyy")
-       
-       //Initialise current Date
-       var startDate = Date()
-
-        if mDateChange {
-            mDate = mStrMonth!+" "+mStrYear!
-            print(mDate!)
-            let date1 = mDate!
-            print(date1)
-            startDate = formatter.date(from: mDate!)!
-            print(startDate)
-        }
-       
-        //Configuring the calendar
-        let endDate = formatter.date(from: "December 2037")!
-        let parameters = ConfigurationParameters(startDate: startDate,
-                                                 endDate: endDate,
-                                                 numberOfRows: 6, // Only 1, 2, 3, & 6 are allowed
-            calendar: Calendar.current,
-            generateInDates: .forAllMonths,
-            generateOutDates: .tillEndOfGrid,
-            firstDayOfWeek: .sunday)
-        return parameters
+extension DashboardViewController:UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
+        
+        switch indexPath.row {
+        case DashBoardTableView.EMAILID.rawValue:
+            let color = UIColor.init(red: 157/255, green: 212/255, blue: 237/255, alpha: 1)
+            cell.backgroundColor = color
+            cell.imageView?.frame = CGRect(x: (cell.imageView?.frame.origin.x)!, y: (cell.imageView?.frame.origin.y)!, width: 60, height: 60)
+            cell.imageView?.image = #imageLiteral(resourceName: "user")
+            cell.textLabel?.text = "admin@bridgelabz.com"
+            break
+        case DashBoardTableView.DASHBOARD.rawValue:
+            cell.textLabel?.text = "Dashboard"
+            break
+        case DashBoardTableView.ENGINEERS.rawValue:
+            cell.textLabel?.text = "Engineers"
+            break
+        case DashBoardTableView.ATTENDANCESUMMARY.rawValue:
+            cell.textLabel?.text = "Attendance Summary"
+            break
+        case DashBoardTableView.REPORTS.rawValue:
+            cell.textLabel?.text = "Reports"
+            break
+        case DashBoardTableView.CLIENTS.rawValue:
+            cell.textLabel?.text = "Clients"
+            break
+        case DashBoardTableView.LOGOUT.rawValue:
+            cell.imageView?.image = #imageLiteral(resourceName: "logout1")
+            cell.textLabel?.text = "Logout"
+            
+        default: break
+            cell.textLabel?.text = "Dasboard"
+        }
+        return cell
+           }
 }
 
-//MARK:DELEGATE METHODS FOR JTAPPLECALENDARVIEW
-
-extension DashboardViewController : JTAppleCalendarViewDelegate
-{
-        func calendar(_ calendar: JTAppleCalendarView, willDisplayCell cell: JTAppleDayCellView, date: Date, cellState: CellState) {
-        let  dateCell = cell as! CellView
-        
-        dateCell.layer.borderWidth = 0.6
-        dateCell.layer.borderColor = UIColor.lightGray.cgColor
-        dateCell.dayLabel.text = cellState.text
-        
-        if cellState.dateBelongsTo == .thisMonth       //if date is of current month
-        {
-            dateCell.layer.borderWidth = 0.6
-            dateCell.layer.borderColor = UIColor.lightGray.cgColor
-            dateCell.dayLabel.textColor =  UIColor(colorWithHexValue: 0x6FB8D9)
-            let day = (mDashVM?.dayAttendance())!
-            dateCell.attendanceData.isHidden = false
-            dateCell.attendanceData.text = day+"/"+(mTotalEmployee1)!
-           if (day.compare("0") == ComparisonResult.orderedDescending) {
-                dateCell.attendanceData.textColor = UIColor.red
-            }
-           else{
-               dateCell.attendanceData.textColor = UIColor.green
+extension DashboardViewController:UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 1 {
+            return
+        }
+        if indexPath.row == 3{
+            self.performSegue(withIdentifier: "calendar", sender: nil)
+        }
+        if indexPath.row == 6 {
+            let alert = UIAlertController(title: "Alert", message: "Do you want to logout", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let yes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default)
+            {
+                UIAlertAction in
+                
+                //Instantiating the View Controller by using StoryboardID
+                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+                
+                self.present(viewController, animated: false, completion: nil)
             }
             
-        }
-        else{
-            dateCell.layer.borderWidth = 0.6
-            dateCell.layer.borderColor = UIColor.lightGray.cgColor
-            dateCell.dayLabel.textColor = UIColor(colorWithHexValue: 0xA9A9A9)
-            dateCell.attendanceData.isHidden = true
-        }
-    }
-    
-    //Method executes when Date cell is selected
-    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-        self.view.bringSubview(toFront: mFallOutView)
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("ddMMMMyyyy")
-        mFallOutDateLabel.text = formatter.string(from: date)
-    }
-    
-}
-
-//MARK:DATASOURCE METHODS FOR CUSTOM PICKER VIEW
-
-extension DashboardViewController : UIPickerViewDataSource
-{
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return (mMonthArray?.count)!
-        }
-        
-        if component == 1 {
-            return (mYearArray?.count)!
-        }
-        return 0
-    }
-}
-
-//MARK:DELEGATE METHODS FOR CUSTOM PICKER VIEW
-
-extension DashboardViewController : UIPickerViewDelegate
-{
-    //Set title for each row of picker view
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if component == 0 {
-            let nameOfMonth:String = mMonthArray!.object(at: row) as! String
-            return nameOfMonth
-        }
-        
-        if component == 1 {
-            let year = mYearArray!.object(at: row) as! String
-            return year
-        }
-        return "null"
-    }
-    
-    //Methods Executes when picker view row is selected
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        self.mCalendarActivityLoader.startAnimating()
-        let when = DispatchTime.now() + 8
-        DispatchQueue.main.asyncAfter(deadline: when) {
+            let cancel = UIAlertAction(title: "No", style: UIAlertActionStyle.default)
+            {
+                UIAlertAction in
+            }
             
-            self.mStrMonth = self.mMonthArray![pickerView.selectedRow(inComponent: 0)] as? String
-            self.mStrYear = self.mYearArray![pickerView.selectedRow(inComponent: 1)] as? String
-            self.mDateChange = true
-            self.mDateChanged = false
-            let formatter = DateFormatter()
-            formatter.setLocalizedDateFormatFromTemplate("MMMMyyyy")
-            let strDate = self.mStrMonth!+" "+self.mStrYear!
-            let mDate = formatter.date(from: strDate)
-            let mTimestamp = Int(mDate!.timeIntervalSince1970 * 1000)
-            print(mTimestamp)
-            
-            self.mDashVM?.viewModelCall(timeStamp: mTimestamp)
-            
+            alert.addAction(yes)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+
         }
-        
     }
     
-    //Reload Calendar
-    func reloadCalendar() -> Void {
-        self.mCalendarActivityLoader.stopAnimating()
-        mCalenderView.reloadData()
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70.0
     }
 }
 

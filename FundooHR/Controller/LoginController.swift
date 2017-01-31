@@ -19,20 +19,20 @@ class LoginController: NSObject, LoginContrllrProtocol {
     var mLoginServc:LoginServices?
     
     //Var to hold object of LoginVMProtocol
-    var pDelegate:LoginVMProtocol?
+    var pDelegate:LoginViewModelProtocol?
     
     //Constructor of LoginController Class
-    init(loginVMProtocolObj:LoginVMProtocol) {
+    init(loginVMProtocolObj:LoginViewModelProtocol) {
         super.init()
         pDelegate = loginVMProtocolObj
         mLoginServc = LoginServices(loginControllerObj: self)
     }
     
     //Method calling a Login REST API
-    func callLoginContrllr(email:String, password:String) -> Void {
+    func userLoginAccess(email:String, password:String) -> Void {
         
 //        mLoginServc?.delegate = self
-        mLoginServc?.userLogin(Useremail: email, userPswd: password)
+        mLoginServc?.userLoginRestService(Useremail: email, userPswd: password)
     }
     
     //Passing login data from LoginController to LoginViewModel

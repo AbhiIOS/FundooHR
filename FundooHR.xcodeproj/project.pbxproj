@@ -22,6 +22,11 @@
 		0A6F0E2D1E14E4D800EECF2C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */; };
 		0A6F0E2F1E14E70200EECF2C /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */; };
 		0A6F0E311E14E89900EECF2C /* DashboardServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E301E14E89900EECF2C /* DashboardServices.swift */; };
+		0A71748B1E3DCB5A0067FB9C /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71748A1E3DCB5A0067FB9C /* CalendarViewModel.swift */; };
+		0A71748D1E3DCE590067FB9C /* CalendarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71748C1E3DCE590067FB9C /* CalendarProtocol.swift */; };
+		0A71748F1E3DD0520067FB9C /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A71748E1E3DD0520067FB9C /* CalendarController.swift */; };
+		0A7174911E3DD33D0067FB9C /* CalendarServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7174901E3DD33D0067FB9C /* CalendarServices.swift */; };
+		0A72EF151E3CE0A100393172 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72EF141E3CE0A100393172 /* CalendarViewController.swift */; };
 		0A7D59831DFBC451002A7116 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D59821DFBC451002A7116 /* DashboardViewController.swift */; };
 		0A7E77AC1E00FA660063BE0E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E77AB1E00FA660063BE0E /* File.swift */; };
 		0A7E77B01E0154AE0063BE0E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E77AF1E0154AE0063BE0E /* SWRevealViewController.m */; };
@@ -35,7 +40,6 @@
 		0AD1F1531E0262D2006BCFCD /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1F1521E0262D2006BCFCD /* SlideMenuViewController.swift */; };
 		0AFC5A951E04F3BF005654D6 /* AttendenceSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AFC5A921E04F3BF005654D6 /* AttendenceSelectorView.xib */; };
 		0AFC5A971E04F3BF005654D6 /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AFC5A941E04F3BF005654D6 /* CellView.xib */; };
-		0AFC5A9C1E051D45005654D6 /* AttendenceSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC5A9A1E051D45005654D6 /* AttendenceSelectorView.swift */; };
 		0AFC5A9D1E051D45005654D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC5A9B1E051D45005654D6 /* CellView.swift */; };
 		1F6AE3803798ED211A8E1988 /* Pods_FundooHR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36ADAD227FE96ED635BD1048 /* Pods_FundooHR.framework */; };
 		BA2A26FF57626AE3C9691BE0 /* Pods_FundooHRUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513D3B3221F7AE3D84525EFF /* Pods_FundooHRUITests.framework */; };
@@ -79,6 +83,11 @@
 		0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		0A6F0E301E14E89900EECF2C /* DashboardServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardServices.swift; sourceTree = "<group>"; };
+		0A71748A1E3DCB5A0067FB9C /* CalendarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		0A71748C1E3DCE590067FB9C /* CalendarProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarProtocol.swift; sourceTree = "<group>"; };
+		0A71748E1E3DD0520067FB9C /* CalendarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		0A7174901E3DD33D0067FB9C /* CalendarServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarServices.swift; sourceTree = "<group>"; };
+		0A72EF141E3CE0A100393172 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		0A7D59821DFBC451002A7116 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		0A7E77AB1E00FA660063BE0E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		0A7E77AD1E0154AD0063BE0E /* FundooHR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FundooHR-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -94,7 +103,6 @@
 		0AD1F1521E0262D2006BCFCD /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlideMenuViewController.swift; path = ../SlideMenuViewController.swift; sourceTree = "<group>"; };
 		0AFC5A921E04F3BF005654D6 /* AttendenceSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AttendenceSelectorView.xib; path = View/AttendenceSelectorView.xib; sourceTree = "<group>"; };
 		0AFC5A941E04F3BF005654D6 /* CellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CellView.xib; path = View/CellView.xib; sourceTree = "<group>"; };
-		0AFC5A9A1E051D45005654D6 /* AttendenceSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendenceSelectorView.swift; sourceTree = "<group>"; };
 		0AFC5A9B1E051D45005654D6 /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		1B06704F076442EAFF183E24 /* Pods_FundooHRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FundooHRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36ADAD227FE96ED635BD1048 /* Pods_FundooHR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FundooHR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,6 +219,7 @@
 			children = (
 				0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */,
 				0A8C345C1E1F4EEB00C88393 /* LoginViewModel.swift */,
+				0A71748A1E3DCB5A0067FB9C /* CalendarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -220,6 +229,7 @@
 			children = (
 				0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */,
 				0A8C345E1E1F4F0E00C88393 /* LoginController.swift */,
+				0A71748E1E3DD0520067FB9C /* CalendarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -229,6 +239,7 @@
 			children = (
 				0A6F0E301E14E89900EECF2C /* DashboardServices.swift */,
 				0A8C34601E1F4F5000C88393 /* LoginServices.swift */,
+				0A7174901E3DD33D0067FB9C /* CalendarServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -237,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				0A6F0E2A1E14E1FC00EECF2C /* Protocols.swift */,
+				0A71748C1E3DCE590067FB9C /* CalendarProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,13 +256,13 @@
 		0A7D59811DFBC401002A7116 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0AFC5A9A1E051D45005654D6 /* AttendenceSelectorView.swift */,
 				0AFC5A9B1E051D45005654D6 /* CellView.swift */,
 				0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */,
 				0A5793C61DF81B2A00FF476C /* AppDelegate.swift */,
 				0A5793C81DF81B2A00FF476C /* LoginViewController.swift */,
 				0A7E77AB1E00FA660063BE0E /* File.swift */,
 				0A7D59821DFBC451002A7116 /* DashboardViewController.swift */,
+				0A72EF141E3CE0A100393172 /* CalendarViewController.swift */,
 				0A7E77AE1E0154AE0063BE0E /* SWRevealViewController.h */,
 				0A7E77AF1E0154AE0063BE0E /* SWRevealViewController.m */,
 				0AD1F1501E0261A8006BCFCD /* SlideMenuTableViewCell.swift */,
@@ -569,25 +581,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A6F0E2F1E14E70200EECF2C /* DashboardController.swift in Sources */,
+				0A71748F1E3DD0520067FB9C /* CalendarController.swift in Sources */,
 				0A87608A1E1A3FBD00B77709 /* UnmarkedEmployee.swift in Sources */,
 				0A6F0E311E14E89900EECF2C /* DashboardServices.swift in Sources */,
+				0A71748D1E3DCE590067FB9C /* CalendarProtocol.swift in Sources */,
 				0AD1F1511E0261A8006BCFCD /* SlideMenuTableViewCell.swift in Sources */,
 				0A7E77B01E0154AE0063BE0E /* SWRevealViewController.m in Sources */,
 				0A8C34611E1F4F5000C88393 /* LoginServices.swift in Sources */,
 				0A5793C91DF81B2A00FF476C /* LoginViewController.swift in Sources */,
-				0AFC5A9C1E051D45005654D6 /* AttendenceSelectorView.swift in Sources */,
 				0A6C77D71E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift in Sources */,
 				0A7E77AC1E00FA660063BE0E /* File.swift in Sources */,
 				0A6F0E2D1E14E4D800EECF2C /* DashboardViewModel.swift in Sources */,
 				0A8C345F1E1F4F0E00C88393 /* LoginController.swift in Sources */,
 				0AD1F1531E0262D2006BCFCD /* SlideMenuViewController.swift in Sources */,
+				0A72EF151E3CE0A100393172 /* CalendarViewController.swift in Sources */,
 				0A5793CF1DF81B2A00FF476C /* FundooHR.xcdatamodeld in Sources */,
 				0AFC5A9D1E051D45005654D6 /* CellView.swift in Sources */,
 				0AADDA131E335A3F00751BBC /* Utility.swift in Sources */,
 				0A6F0E2B1E14E1FC00EECF2C /* Protocols.swift in Sources */,
 				0A14911D1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift in Sources */,
 				0A5793C71DF81B2A00FF476C /* AppDelegate.swift in Sources */,
+				0A7174911E3DD33D0067FB9C /* CalendarServices.swift in Sources */,
 				0A7D59831DFBC451002A7116 /* DashboardViewController.swift in Sources */,
+				0A71748B1E3DCB5A0067FB9C /* CalendarViewModel.swift in Sources */,
 				0A8C345D1E1F4EEB00C88393 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
