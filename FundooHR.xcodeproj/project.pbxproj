@@ -17,7 +17,8 @@
 		0A5793D41DF81B2A00FF476C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5793D21DF81B2A00FF476C /* LaunchScreen.storyboard */; };
 		0A5793DF1DF81B2A00FF476C /* FundooHRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793DE1DF81B2A00FF476C /* FundooHRTests.swift */; };
 		0A5793EA1DF81B2A00FF476C /* FundooHRUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5793E91DF81B2A00FF476C /* FundooHRUITests.swift */; };
-		0A6C77D71E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C77D61E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift */; };
+		0A6E928B1E41CE1400D1C526 /* SlideMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A6E928A1E41CE1400D1C526 /* SlideMenu.plist */; };
+		0A6E928D1E41F33A00D1C526 /* FalloutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E928C1E41F33A00D1C526 /* FalloutViewController.swift */; };
 		0A6F0E2B1E14E1FC00EECF2C /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2A1E14E1FC00EECF2C /* Protocols.swift */; };
 		0A6F0E2D1E14E4D800EECF2C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */; };
 		0A6F0E2F1E14E70200EECF2C /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */; };
@@ -30,7 +31,6 @@
 		0A7D59831DFBC451002A7116 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D59821DFBC451002A7116 /* DashboardViewController.swift */; };
 		0A7E77AC1E00FA660063BE0E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E77AB1E00FA660063BE0E /* File.swift */; };
 		0A7E77B01E0154AE0063BE0E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E77AF1E0154AE0063BE0E /* SWRevealViewController.m */; };
-		0A87608A1E1A3FBD00B77709 /* UnmarkedEmployee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */; };
 		0A8BB6391E3892CF003719DF /* Url.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A8BB6381E3892CF003719DF /* Url.plist */; };
 		0A8C345D1E1F4EEB00C88393 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C345C1E1F4EEB00C88393 /* LoginViewModel.swift */; };
 		0A8C345F1E1F4F0E00C88393 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C345E1E1F4F0E00C88393 /* LoginController.swift */; };
@@ -78,7 +78,8 @@
 		0A5793E51DF81B2A00FF476C /* FundooHRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FundooHRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5793E91DF81B2A00FF476C /* FundooHRUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundooHRUITests.swift; sourceTree = "<group>"; };
 		0A5793EB1DF81B2A00FF476C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A6C77D61E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceFallOutCollectionViewCell.swift; sourceTree = "<group>"; };
+		0A6E928A1E41CE1400D1C526 /* SlideMenu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SlideMenu.plist; sourceTree = "<group>"; };
+		0A6E928C1E41F33A00D1C526 /* FalloutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FalloutViewController.swift; sourceTree = "<group>"; };
 		0A6F0E2A1E14E1FC00EECF2C /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		0A6F0E2C1E14E4D800EECF2C /* DashboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		0A6F0E2E1E14E70200EECF2C /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		0A7E77AD1E0154AD0063BE0E /* FundooHR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FundooHR-Bridging-Header.h"; sourceTree = "<group>"; };
 		0A7E77AE1E0154AE0063BE0E /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		0A7E77AF1E0154AE0063BE0E /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarkedEmployee.swift; path = ../Model/UnmarkedEmployee.swift; sourceTree = "<group>"; };
 		0A8BB6381E3892CF003719DF /* Url.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Url.plist; sourceTree = "<group>"; };
 		0A8C345C1E1F4EEB00C88393 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0A8C345E1E1F4F0E00C88393 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -192,6 +192,7 @@
 				0A5793D51DF81B2A00FF476C /* Info.plist */,
 				0A5793CD1DF81B2A00FF476C /* FundooHR.xcdatamodeld */,
 				0A8BB6381E3892CF003719DF /* Url.plist */,
+				0A6E928A1E41CE1400D1C526 /* SlideMenu.plist */,
 			);
 			path = FundooHR;
 			sourceTree = "<group>";
@@ -257,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				0AFC5A9B1E051D45005654D6 /* CellView.swift */,
-				0A8760891E1A3FBD00B77709 /* UnmarkedEmployee.swift */,
 				0A5793C61DF81B2A00FF476C /* AppDelegate.swift */,
 				0A5793C81DF81B2A00FF476C /* LoginViewController.swift */,
 				0A7E77AB1E00FA660063BE0E /* File.swift */,
@@ -268,8 +268,8 @@
 				0AD1F1501E0261A8006BCFCD /* SlideMenuTableViewCell.swift */,
 				0AD1F1521E0262D2006BCFCD /* SlideMenuViewController.swift */,
 				0A14911C1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift */,
-				0A6C77D61E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift */,
 				0A7E77AD1E0154AD0063BE0E /* FundooHR-Bridging-Header.h */,
+				0A6E928C1E41F33A00D1C526 /* FalloutViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -418,6 +418,7 @@
 				0AFC5A951E04F3BF005654D6 /* AttendenceSelectorView.xib in Resources */,
 				0A8BB6391E3892CF003719DF /* Url.plist in Resources */,
 				0A5793CC1DF81B2A00FF476C /* Main.storyboard in Resources */,
+				0A6E928B1E41CE1400D1C526 /* SlideMenu.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,14 +583,12 @@
 			files = (
 				0A6F0E2F1E14E70200EECF2C /* DashboardController.swift in Sources */,
 				0A71748F1E3DD0520067FB9C /* CalendarController.swift in Sources */,
-				0A87608A1E1A3FBD00B77709 /* UnmarkedEmployee.swift in Sources */,
 				0A6F0E311E14E89900EECF2C /* DashboardServices.swift in Sources */,
 				0A71748D1E3DCE590067FB9C /* CalendarProtocol.swift in Sources */,
 				0AD1F1511E0261A8006BCFCD /* SlideMenuTableViewCell.swift in Sources */,
 				0A7E77B01E0154AE0063BE0E /* SWRevealViewController.m in Sources */,
 				0A8C34611E1F4F5000C88393 /* LoginServices.swift in Sources */,
 				0A5793C91DF81B2A00FF476C /* LoginViewController.swift in Sources */,
-				0A6C77D71E33C3EB00A1ED6A /* AttendanceFallOutCollectionViewCell.swift in Sources */,
 				0A7E77AC1E00FA660063BE0E /* File.swift in Sources */,
 				0A6F0E2D1E14E4D800EECF2C /* DashboardViewModel.swift in Sources */,
 				0A8C345F1E1F4F0E00C88393 /* LoginController.swift in Sources */,
@@ -600,6 +599,7 @@
 				0AADDA131E335A3F00751BBC /* Utility.swift in Sources */,
 				0A6F0E2B1E14E1FC00EECF2C /* Protocols.swift in Sources */,
 				0A14911D1DFE7DD000C5B2A2 /* DashCollectionViewCell.swift in Sources */,
+				0A6E928D1E41F33A00D1C526 /* FalloutViewController.swift in Sources */,
 				0A5793C71DF81B2A00FF476C /* AppDelegate.swift in Sources */,
 				0A7174911E3DD33D0067FB9C /* CalendarServices.swift in Sources */,
 				0A7D59831DFBC451002A7116 /* DashboardViewController.swift in Sources */,

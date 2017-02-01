@@ -81,6 +81,7 @@ class CalendarServices: NSObject {
                         let monthlyAttendance = json as NSDictionary
                         self.mTotalEmp = monthlyAttendance["totalEmployee"] as? Int
                         self.mMonthlyAttendance = monthlyAttendance["attendance"] as! NSArray
+                        self.mPerDayAttendance = []
                         for ary in self.mMonthlyAttendance
                         {
                             let attendance = ary as! NSDictionary

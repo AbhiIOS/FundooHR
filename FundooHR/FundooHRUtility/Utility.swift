@@ -91,4 +91,37 @@ class Utility: UIViewController {
         //  Save to disk
         preferences.synchronize()
     }
+    
+    func logout(view:UIViewController) -> Void {
+        
+        let alert = UIAlertController(title: "Alert", message: "Do you want to logout", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let yes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default)
+        {
+            UIAlertAction in
+            
+            //Instantiating the View Controller by using StoryboardID
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+            
+            view.present(viewController, animated: false, completion: nil)
+        }
+        
+        let cancel = UIAlertAction(title: "No", style: UIAlertActionStyle.default)
+        {
+            UIAlertAction in
+        }
+        
+        alert.addAction(yes)
+        alert.addAction(cancel)
+        view.present(alert, animated: true, completion: nil)
+
+    }
+    
+    func getSlideMenuDetail() -> NSArray {
+        
+        let path = Bundle.main.path(forResource: "SlideMenu", ofType: "plist")
+        let array = NSArray(contentsOfFile: path!)
+        print(array!)
+        return array!
+    }
 }

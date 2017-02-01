@@ -98,8 +98,9 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
     var mDashVM:DashboardViewModel?         //Var to object of DashboardViewModel
     var mDateChanged:Bool = true            //Var to store boolean value
     var mDate1:Date?                        //Var to store date
-    var mBoolVar:Bool = true                //Var to store boolean Value
-    var mCheck:Bool = true                   //Var to store boolean Value
+    var mCheckVar:Bool = true               //Var to store boolean Value
+    var mCheck:Bool = true                  //Var to store boolean Value
+    var mSlideDetail:NSArray?               //Var to store object in array
     var mUtil = Utility()                   //Var to hold Utility object
     
     
@@ -112,6 +113,9 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
             mDashVM = DashboardViewModel(dashboardProtocolObj: self)
             mDashVM?.getDashboardData()
         }
+        
+        //Get slide Menu detail from plist
+        mSlideDetail = mUtil.getSlideMenuDetail()
         
     }
     
@@ -137,9 +141,6 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
         //set Date to dateLabel
         mHeaderDateLabel.text = formatter2.string(from: Date())
         
-        
-       // mSlideBarBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-        
         mUtil.setShadowAttribute(myView: mSecondaryView, shadowOpacity: 0.5, shadowRadius: 2.0)
         
         if mFieldName != nil {
@@ -147,7 +148,9 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
             mDashLabel.text = mFieldName
         }
         
+        //Set slideTableView datasource to self
         mSlideTableView.dataSource = self
+        //Set SlideTableView delegate to self
         mSlideTableView.delegate = self
         
             }
@@ -157,16 +160,17 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
         //changing the custom view's size while we change to landscape mode
         print("views width",view.frame.width)
         mCustomView.frame = CGRect.init(x: mSlideMenu.frame.width, y: 0, width: view.frame.width-mSlideMenu.frame.width, height: view.frame.height)
+        
         mCustomView.backgroundColor = UIColor.clear
         
         if(mFlag){
-            mSlideMenuContraint.constant = -250
+            mSlideMenuContraint.constant = -300
             //1st case of removing tap gesture(papre) when we click on the icon
             
             removeGestureRecognizer()
             
         }else{
-            //enabling the activity indictor
+            //Making a slide menu visible to user
             mSlideMenuContraint.constant = 0
             self.view.addSubview(mCustomView)
             mCustomView.alpha = 0.5
@@ -187,8 +191,6 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
             mCustomView.backgroundColor = UIColor.clear
         }
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-            print("Portrait")
-            print("views width",view.frame.width)
             mCustomView.frame = CGRect.init(x: mSlideMenu.frame.width, y: 0, width: view.frame.width-mSlideMenu.frame.width, height: view.frame.height)
             mCustomView.backgroundColor = UIColor.clear
         }
@@ -196,7 +198,7 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
     
     //add the gesture recognizer when the menu button is tapped
     func addGestureRecognizer(){
-        let lTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
+        let lTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurView(_:)))
         self.mCustomView.addGestureRecognizer(lTapGesture)
     }
     
@@ -208,12 +210,11 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
     }
     
     //called by addGestureRecognizer method
-    func tapBlurButton(_ sender: UIButton) {
+    func tapBlurView(_ sender: UIButton) {
         mSlideMenuContraint.constant = -300
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
-        mFlag = !mFlag
         //to remove custom view after removing slidemenu
         self.mCustomView.removeFromSuperview()
         mFlag = !mFlag
@@ -224,8 +225,8 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
 
     //reload tableview data when the data is loaded into it
     func tableviewReload(){
-        //disabling the activity indictor
         
+        //Reloading the Table View
         self.mSlideTableView.reloadData()
     }
 
@@ -234,6 +235,7 @@ class DashboardViewController: UIViewController, DashboardViewProtocol {
     func reloadAttendance() -> Void {
         mCheck = false
         mActivityLoader.stopAnimating()
+        
         //set Attendance Collection datasource to the self
         self.mAttendanceCollection.dataSource = self
         mAttendanceCollection.reloadData()
@@ -410,7 +412,7 @@ extension DashboardViewController:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return (mSlideDetail!.count)+1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -420,32 +422,34 @@ extension DashboardViewController:UITableViewDataSource{
         case DashBoardTableView.EMAILID.rawValue:
             let color = UIColor.init(red: 157/255, green: 212/255, blue: 237/255, alpha: 1)
             cell.backgroundColor = color
-            cell.imageView?.frame = CGRect(x: (cell.imageView?.frame.origin.x)!, y: (cell.imageView?.frame.origin.y)!, width: 60, height: 60)
+            cell.imageView?.frame = CGRect(x: (cell.imageView?.frame.origin.x)!, y: (cell.imageView?.frame.origin.y)!, width: 15, height: 18)
             cell.imageView?.image = #imageLiteral(resourceName: "user")
             cell.textLabel?.text = "admin@bridgelabz.com"
             break
         case DashBoardTableView.DASHBOARD.rawValue:
-            cell.textLabel?.text = "Dashboard"
+            cell.textLabel?.text = mSlideDetail?[indexPath.row-1] as? String
             break
         case DashBoardTableView.ENGINEERS.rawValue:
-            cell.textLabel?.text = "Engineers"
+            cell.textLabel?.text = mSlideDetail?[indexPath.row-1] as? String
             break
         case DashBoardTableView.ATTENDANCESUMMARY.rawValue:
-            cell.textLabel?.text = "Attendance Summary"
+            cell.textLabel?.text = mSlideDetail?[indexPath.row-1] as? String
             break
         case DashBoardTableView.REPORTS.rawValue:
-            cell.textLabel?.text = "Reports"
+            cell.textLabel?.text = mSlideDetail?[indexPath.row-1] as? String
             break
         case DashBoardTableView.CLIENTS.rawValue:
-            cell.textLabel?.text = "Clients"
+            cell.textLabel?.text = mSlideDetail?[indexPath.row-1] as? String
             break
         case DashBoardTableView.LOGOUT.rawValue:
+            cell.imageView?.frame = CGRect(x: (cell.imageView?.frame.origin.x)!, y: (cell.imageView?.frame.origin.y)!, width: 15, height: 18)
             cell.imageView?.image = #imageLiteral(resourceName: "logout1")
-            cell.textLabel?.text = "Logout"
+            cell.textLabel?.text = mSlideDetail?[indexPath.row-1] as? String
             
         default: break
             cell.textLabel?.text = "Dasboard"
         }
+        
         return cell
            }
 }
@@ -454,10 +458,12 @@ extension DashboardViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
+            mSlideMenuContraint.constant = -300
             return
         }
         if indexPath.row == 3{
             self.performSegue(withIdentifier: "calendar", sender: nil)
+            mSlideMenuContraint.constant = -300
         }
         if indexPath.row == 6 {
             let alert = UIAlertController(title: "Alert", message: "Do you want to logout", preferredStyle: UIAlertControllerStyle.alert)
@@ -480,6 +486,7 @@ extension DashboardViewController:UITableViewDelegate{
             alert.addAction(yes)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
+            mSlideMenuContraint.constant = -300
 
         }
     }

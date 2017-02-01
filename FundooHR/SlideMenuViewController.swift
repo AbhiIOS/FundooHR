@@ -98,7 +98,7 @@ class SlideMenuViewController: UIViewController {
             let dash = segue.destination as! DashboardViewController
             let name = mArray[(indexpath?.row)!]
             dash.mFieldName = name
-            dash.mBoolVar = false
+            dash.mCheckVar = false
             dash.mCheck = false
             dash.mIndex = (indexpath?.row)!
         }

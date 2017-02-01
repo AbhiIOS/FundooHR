@@ -32,7 +32,8 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
     
     var mFlag = false
     var mCustomView = UIView()              //creating uiview type variable
-    var mMonthArray:NSMutableArray?         //Var to store months name in form of array
+    var mMonthArray:NSMutableArray?         //Var to store months name in form 
+                                            // of array
     var mYearArray:NSMutableArray?          //Var to store year in form of array
     var mDate:String?                       //Var to store Date
     var mDateChange:Bool = false            //Var to store boolean Value
@@ -40,6 +41,8 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
     var mStrYear:String?                    //Var to store Year
     var mCalendarVM:CalendarViewModel?      //Var to object of CalendarViewModel
     var mTimeStamp:Int?                     //Var to store timestamp
+    var mSlideMenuDetail:NSArray?           //Var to store object in array
+    var mTimestamp:Double?                     //Var to store timestamp
     
     var mUtil = Utility()
     
@@ -56,10 +59,14 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
             mCalendarVM?.getMonthlyAttendance(timestamp:mTimeStamp!)
         }
         
+        mSlideMenuDetail = mUtil.getSlideMenuDetail()
+        
     }
     
     //Method executes after view loads
     override func viewWillAppear(_ animated: Bool) {
+        
+        
         
         let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
         view.backgroundColor = UIColor(colorWithHexValue: 0xD8D1C7).withAlphaComponent(0.8)
@@ -122,8 +129,6 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
         // Add this new line
         mCalendarView.cellInset = CGPoint(x: 0, y: 0)
         
-        //mSlideMenuBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-        
         mUtil.setShadowAttribute(myView: mCalendarHeaderView, shadowOpacity: 0.5, shadowRadius: 2.0)
         
         //set Slide TableView datasource to the self
@@ -184,7 +189,7 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
     
     //add the gesture recognizer when the menu button is tapped
     func addGestureRecognizer(){
-        let lTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurButton(_:)))
+        let lTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlurView(_:)))
         self.mCustomView.addGestureRecognizer(lTapGesture)
     }
     
@@ -196,23 +201,21 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
     }
     
     //called by addGestureRecognizer method
-    func tapBlurButton(_ sender: UIButton) {
+    func tapBlurView(_ sender: UIButton) {
         mSlideViewConstraint.constant = -300
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
-        mFlag = !mFlag
         //to remove custom view after removing slidemenu
         self.mCustomView.removeFromSuperview()
         mFlag = !mFlag
         
-        //3rd case of removing  gesture when we click on collectionview
+        //3rd case of removing  gesture when we click on view
         removeGestureRecognizer()
     }
     
     //reload tableview data when the data is loaded into it
     func tableviewReload(){
-        //disabling the activity indictor
         
         self.mSlideTable.reloadData()
     }
@@ -221,7 +224,6 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
     //Reload Calendar
     func reloadCalendar() -> Void {
         //self.mCalendarActivityLoader.stopAnimating()
-        
         //set calendarView delegate to the self
         mCalendarView.delegate = self
         //Registring cellView xib
@@ -239,15 +241,16 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
         }
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        let fallvc = segue.destination as! FalloutViewController
+        fallvc.mTimeStamp = mTimestamp!
     }
-    */
+    
 
 }
 
@@ -321,10 +324,9 @@ extension CalendarViewController : JTAppleCalendarViewDelegate
     //Method executes when Date cell is selected
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
         
-//      //  self.view.bringSubview(toFront: mFallOutView)
-//        let formatter = DateFormatter()
-//        formatter.setLocalizedDateFormatFromTemplate("ddMMMMyyyy")
-//        mFallOutDateLabel.text = formatter.string(from: date)
+        mTimestamp = cellState.date.timeIntervalSince1970 * 1000
+        self.performSegue(withIdentifier: "fallout", sender: nil)
+        
     }
     
 }
@@ -378,7 +380,6 @@ extension CalendarViewController : UIPickerViewDelegate
             self.mStrMonth = self.mMonthArray![pickerView.selectedRow(inComponent: 0)] as? String
             self.mStrYear = self.mYearArray![pickerView.selectedRow(inComponent: 1)] as? String
             self.mDateChange = true
-//            self.mDateChanged = false
             let formatter = DateFormatter()
             formatter.setLocalizedDateFormatFromTemplate("MMMMyyyy")
             let strDate = self.mStrMonth!+" "+self.mStrYear!
@@ -395,6 +396,8 @@ extension CalendarViewController : UIPickerViewDelegate
     
 }
 
+//MARK:DATASOURCE METHODS FOR SLIDEMENU TABLE VIEW
+
 extension CalendarViewController:UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -402,7 +405,7 @@ extension CalendarViewController:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return (mSlideMenuDetail!.count)+1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -417,62 +420,44 @@ extension CalendarViewController:UITableViewDataSource{
             cell.textLabel?.text = "admin@bridgelabz.com"
             break
         case SlideTableView.DASHBOARD.rawValue:
-            cell.textLabel?.text = "Dashboard"
+            cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
             break
         case SlideTableView.ENGINEERS.rawValue:
-            cell.textLabel?.text = "Engineers"
+            cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
             break
         case SlideTableView.ATTENDANCESUMMARY.rawValue:
-            cell.textLabel?.text = "Attendance Summary"
+            cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
             break
         case SlideTableView.REPORTS.rawValue:
-            cell.textLabel?.text = "Reports"
+            cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
             break
         case SlideTableView.CLIENTS.rawValue:
-            cell.textLabel?.text = "Clients"
+            cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
             break
         case SlideTableView.LOGOUT.rawValue:
             cell.imageView?.image = #imageLiteral(resourceName: "logout1")
-            cell.textLabel?.text = "Logout"
+            cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
             
         default: break
-        cell.textLabel?.text = "Dasboard"
+        cell.textLabel?.text = mSlideMenuDetail?[0] as? String
         }
         return cell
     }
 }
 
+//MARK:DELEGATE METHODS FOR SLIDEMENU TABLE VIEW
 extension CalendarViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if indexPath.row == 1 {
-            return
+            self.navigationController?.popViewController(animated: true)
         }
         if indexPath.row == 3{
-            self.performSegue(withIdentifier: "calendar", sender: nil)
+            return
         }
         if indexPath.row == 6 {
-            let alert = UIAlertController(title: "Alert", message: "Do you want to logout", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let yes = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default)
-            {
-                UIAlertAction in
-                
-                //Instantiating the View Controller by using StoryboardID
-                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
-                
-                self.present(viewController, animated: false, completion: nil)
-            }
-            
-            let cancel = UIAlertAction(title: "No", style: UIAlertActionStyle.default)
-            {
-                UIAlertAction in
-            }
-            
-            alert.addAction(yes)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
-            
+            mUtil.logout(view: self)
         }
     }
     
