@@ -49,7 +49,7 @@ class LoginServices: NSObject {
                     
                     if self.checkInternetConnectivity(check: checkStr)
                     {
-                        self.mDelegate?.errorMessageCNTRLR()
+                        self.mDelegate?.errorMessageCNTRLR(message: "Internet not connected")
                     }
                     else
                     {
@@ -61,7 +61,10 @@ class LoginServices: NSObject {
                     }
                     
                
-        }
+                }
+                else{
+                   self.mDelegate?.errorMessageCNTRLR(message: "Could not connect to the server")
+                }
         print("Hello")
         
     }

@@ -35,9 +35,9 @@ class DashboardController: NSObject, DashboardControllerProtocol {
     }
     
     //Passing Dashboard Data from DashboardController to DashboardViewModel
-    func recieveDashboardData(markedData:Int?, unmarkedData:String?, attendanceFallNumber:Int?, leave1:String?, totalEmployee11 totalEmployee1:Int?, timeStamp:CLong?) -> Void {
+    func recieveDashboardData(dashDataModel:DashboardDataModel) -> Void {
         
-        pDelegate?.DashboardDataResponse(markedData: markedData, unmarkedData: unmarkedData, attendanceFallNumber: attendanceFallNumber, leave1: leave1, totalEmployee11: totalEmployee1, timeStamp: timeStamp)
+        pDelegate?.DashboardDataResponse(dashDataModel: dashDataModel)
     }
     
     //Display Error message to user

@@ -122,8 +122,12 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="ub6-rV-B6g">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-1" translatesAutoresizingMaskIntoConstraints="NO" id="ub6-rV-B6g">
                                                 <rect key="frame" x="154" y="105" width="107" height="120"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="120" id="8Br-j1-j5v"/>
+                                                    <constraint firstAttribute="width" constant="107" id="ORf-7F-ty5"/>
+                                                </constraints>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -402,16 +406,15 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <outlet property="NumberLabel" destination="lF5-PK-Za2" id="5nP-uw-Lcg"/>
-                                                    <outlet property="dateLabel" destination="jAh-uB-21O" id="8Md-8y-WgD"/>
-                                                    <outlet property="markedAttendanceData" destination="XWO-Rb-aZE" id="8jU-Sg-vv2"/>
-                                                    <outlet property="markedLabel" destination="euF-mb-b9F" id="F9u-JP-91Z"/>
-                                                    <outlet property="menuButton" destination="WCP-lF-WY5" id="tsM-b7-yhn"/>
-                                                    <outlet property="numberLabel" destination="lF5-PK-Za2" id="EYH-Im-NRh"/>
-                                                    <outlet property="titleLabel" destination="93e-B5-mxP" id="8Z3-Jm-g95"/>
-                                                    <outlet property="totalNumberLabel" destination="nDM-ze-GcB" id="iR9-yF-FuG"/>
-                                                    <outlet property="unmarkedAttendanceData" destination="fE7-nJ-RXW" id="dO9-Pp-Jfn"/>
-                                                    <outlet property="unmarkedLabel" destination="SWw-6t-HuM" id="BMm-y5-wSI"/>
+                                                    <outlet property="mAttendanceFallLabel" destination="lF5-PK-Za2" id="uUp-Rm-YiB"/>
+                                                    <outlet property="mDateLabel" destination="jAh-uB-21O" id="sGg-3x-bIs"/>
+                                                    <outlet property="mMarkedAttendanceData" destination="XWO-Rb-aZE" id="0hB-Om-tuW"/>
+                                                    <outlet property="mMarkedLabel" destination="euF-mb-b9F" id="lVM-XJ-5uq"/>
+                                                    <outlet property="mMenuButton" destination="WCP-lF-WY5" id="A7P-LP-GjA"/>
+                                                    <outlet property="mTitleLabel" destination="93e-B5-mxP" id="uxo-Sw-4HN"/>
+                                                    <outlet property="mTotalNumberLabel" destination="nDM-ze-GcB" id="G1W-RV-wwM"/>
+                                                    <outlet property="mUnmarkedAttendanceData" destination="fE7-nJ-RXW" id="YE8-Qk-FIt"/>
+                                                    <outlet property="mUnmarkedLabel" destination="SWw-6t-HuM" id="fIi-Nc-7Az"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

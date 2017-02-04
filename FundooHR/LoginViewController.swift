@@ -158,12 +158,12 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     }
     
     //Method executes when any error occurs
-    func errorMessage() -> Void {
+    func errorMessage(message:String) -> Void {
         
         self.mActivityLoader.stopAnimating()
         self.mActivityLoader.isHidden = true
 
-        mUtil.displayErrorMessage(message: "Something Wrong Happened", view: self)
+        mUtil.displayErrorMessage(message: message, view: self)
     }
     
     

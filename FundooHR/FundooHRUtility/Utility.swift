@@ -2,6 +2,10 @@
 //  Utility.swift
 //  FundooHR
 //
+//  Purpose:
+//  1. It is a Utility Class
+//  2. It holds a reusable methods
+
 //  Created by BridgeLabz Solutions LLP  on 1/21/17.
 //  Copyright © 2017 BridgeLabz Solutions LLP . All rights reserved.
 //
@@ -11,6 +15,7 @@ import UIKit
 
 class Utility: UIViewController {
     
+    //Method for setting shadow attribute to a view
     func setShadowAttribute(myView:UIView, shadowOpacity:Double, shadowRadius:Double)
     {
         myView.layer.shadowColor = UIColor.black.cgColor
@@ -19,21 +24,23 @@ class Utility: UIViewController {
         myView.layer.shadowRadius = CGFloat(shadowRadius)
     }
     
+    //Method for configuring a UICollectionView Cell
     func configureCell(cell:DashCollectionViewCell, title:Bool, marked:Bool, unmarked:Bool, number:Bool, date:Bool, totNumber:Bool, markedData:Bool, unmarkedData:Bool, menu:Bool)
     {
-        cell.titleLabel.isHidden = title
-        cell.markedLabel.isHidden = marked
-        cell.unmarkedLabel.isHidden = unmarked
-        cell.numberLabel.isHidden = number
-        cell.dateLabel.isHidden = date
-        cell.totalNumberLabel.isHidden = totNumber
-        cell.markedAttendanceData.isHidden = markedData
-        cell.unmarkedAttendanceData.isHidden = unmarkedData
-        cell.menuButton.isEnabled = menu
-        cell.markedAttendanceData.layer.masksToBounds = !markedData
-        cell.unmarkedAttendanceData.layer.masksToBounds = !unmarkedData
+        cell.mTitleLabel.isHidden = title
+        cell.mMarkedLabel.isHidden = marked
+        cell.mUnmarkedLabel.isHidden = unmarked
+        cell.mAttendanceFallLabel.isHidden = number
+        cell.mDateLabel.isHidden = date
+        cell.mTotalNumberLabel.isHidden = totNumber
+        cell.mMarkedAttendanceData.isHidden = markedData
+        cell.mUnmarkedAttendanceData.isHidden = unmarkedData
+        cell.mMenuButton.isEnabled = menu
+        cell.mMarkedAttendanceData.layer.masksToBounds = !markedData
+        cell.mUnmarkedAttendanceData.layer.masksToBounds = !unmarkedData
     }
     
+    //Method to display Error alertView to user
     func displayErrorMessage(message:String, view:UIViewController)
     {
         let alertView = UIAlertController.init(title: "ERROR !!!!!", message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -42,6 +49,7 @@ class Utility: UIViewController {
         view.present(alertView, animated: true, completion:nil)
     }
     
+    //Method for validating user emailId & user password
     func isValidLoginCredential(emailId:String, password:String) -> Bool {
         
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,20}"
@@ -57,6 +65,7 @@ class Utility: UIViewController {
         
     }
     
+    //Method to get data from UserDefaults
     func getUserDefaultData(key:String) -> String
     {
         let preferences = UserDefaults.standard
@@ -65,6 +74,7 @@ class Utility: UIViewController {
         return mData!
     }
     
+    //Method to fetch token value from userDefaults
     func fetchToken() -> String
     {
         let preferences = UserDefaults.standard
@@ -73,6 +83,7 @@ class Utility: UIViewController {
         return mToken!
     }
 
+    //Method to get url from plist
     func populateData(keyUrl:String) -> String {
         
         let path = Bundle.main.path(forResource: "Url", ofType: "plist")
@@ -82,6 +93,7 @@ class Utility: UIViewController {
         return url1
     }
     
+    //Method to save data in userDefaults
     func userDefaultsData(obj:DashboardViewModel) -> Void {
         
         let preferences = UserDefaults.standard
@@ -92,6 +104,7 @@ class Utility: UIViewController {
         preferences.synchronize()
     }
     
+    //Method to perform Logout action
     func logout(view:UIViewController) -> Void {
         
         let alert = UIAlertController(title: "Alert", message: "Do you want to logout", preferredStyle: UIAlertControllerStyle.alert)
@@ -117,6 +130,7 @@ class Utility: UIViewController {
 
     }
     
+    //Method to get slide menu details from plist
     func getSlideMenuDetail() -> NSArray {
         
         let path = Bundle.main.path(forResource: "SlideMenu", ofType: "plist")

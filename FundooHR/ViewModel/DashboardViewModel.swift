@@ -71,14 +71,15 @@ class DashboardViewModel: NSObject, DashboardViewModelProtocol {
     }
     
     //Saving Dashboard Data recieved from Controller
-    func DashboardDataResponse(markedData:Int?, unmarkedData:String?, attendanceFallNumber:Int?, leave1:String?, totalEmployee11:Int?, timeStamp:CLong?) -> Void {
-        mMarkedAttdendance = String(describing: markedData!)
-        mUnmarkedAttendance = String(describing: unmarkedData!)
-        mAttendanceFallNumberLabel = String(describing: attendanceFallNumber!)
-        mLeave = String(describing: leave1!)
-        mTotalEmployee = String(describing: totalEmployee11!)
+    func DashboardDataResponse(dashDataModel:DashboardDataModel) -> Void {
+        mMarkedAttdendance = String(dashDataModel.mMarkedData!)
+        mUnmarkedAttendance = String(dashDataModel.mUnmarkedData!)
+        mAttendanceFallNumberLabel = String(dashDataModel.mAttendanceFallNumber!)
+        mLeave = String(dashDataModel.mLeave1!)
+        mTotalEmployee = String(dashDataModel.mTotalEmployee1!)
         print(mTotalEmployee!)
-        mJsonTimeStamp = timeStamp!
+        mJsonTimeStamp = dashDataModel.mTimeStamp!
+
         mDashboard?.reloadAttendance()
     }
     

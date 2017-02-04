@@ -34,9 +34,9 @@ class CalendarController: NSObject, CalendarControllerProtocol {
     }
  
     //Passing Monthly Attendance Data from CalendarController to CalendarViewModel
-    func recieveMonthlyAttendanceData(perDayAttendance1:NSArray, totalEmp:Int?) -> Void {
+    func recieveMonthlyAttendanceData(perDayAttendance1:NSArray, totalEmp:Int?, timestamp:String) -> Void {
         
-        pDelegate?.monthlyAttendanceDetails(perDayAttendance1: perDayAttendance1, totalEmp:totalEmp)
+        pDelegate?.monthlyAttendanceDetails(perDayAttendance1: perDayAttendance1, totalEmp: totalEmp, timestamp: timestamp)
     }
 
 }

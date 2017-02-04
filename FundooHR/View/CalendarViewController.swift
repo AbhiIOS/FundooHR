@@ -42,7 +42,8 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
     var mCalendarVM:CalendarViewModel?      //Var to object of CalendarViewModel
     var mTimeStamp:Int?                     //Var to store timestamp
     var mSlideMenuDetail:NSArray?           //Var to store object in array
-    var mTimestamp:Double?                     //Var to store timestamp
+    var mTimestamp:Double?                  //Var to store timestamp
+    var mEmailId:String?                    //Var to store user EmailId
     
     var mUtil = Utility()
     
@@ -61,12 +62,64 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
         
         mSlideMenuDetail = mUtil.getSlideMenuDetail()
         
+        mCalendarView.dataSource = self
+        
+        
+        //set customPickerView datasource to the self
+        mPickerView.dataSource = self
+        
+        //set customPickerView delegate to the self
+        mPickerView.delegate = self
+
+        
+        //Initialise Date Formatter
+        let mthFormatter = DateFormatter()
+        let yrFormatter = DateFormatter()
+        
+        //setting Date format
+        mthFormatter.setLocalizedDateFormatFromTemplate("MMMM")
+        yrFormatter.setLocalizedDateFormatFromTemplate("yyyy")
+        
+        //Getting Month Name from current Date
+                let currentMonth = mthFormatter.string(from: Date())
+                print(currentMonth)
+                //Getting Year from Current Date
+                let currentYear = yrFormatter.string(from: Date())
+                //set Date to dateLabel
+               // mHeaderDateLabel.text = dtFormatter.string(from: Date())
+        
+                mMonthArray = mCalendarVM?.mMonthsAry1
+                mYearArray = mCalendarVM?.mYearAry1
+                print(mMonthArray!.count)
+                print(mYearArray!.count)
+        
+                //Setting current Month Name to the picker View
+                let mthCnt = mMonthArray!.count
+                var cntr : Int = 0
+                for _ in 0..<mthCnt {
+                    print(cntr)
+                    if mMonthArray!.object(at: cntr) as! String == currentMonth {
+                        mPickerView.selectRow(cntr, inComponent: 0, animated: true)
+                        print(cntr)
+                        break
+                    }
+                    cntr += 1
+                }
+                cntr = 0 // Resetting to 0
+                //Setting current year to the picker View
+                for _ in 0..<(mYearArray!.count) {
+                    if mYearArray!.object(at: cntr) as! String == currentYear {
+                        mPickerView.selectRow(cntr, inComponent: 1, animated: true)
+                        break
+                    }
+                    cntr += 1
+                }
+
+        //mCalendarView.delegate = self
     }
     
     //Method executes after view loads
     override func viewWillAppear(_ animated: Bool) {
-        
-        
         
         let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
         view.backgroundColor = UIColor(colorWithHexValue: 0xD8D1C7).withAlphaComponent(0.8)
@@ -78,43 +131,6 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
         //set customPickerView delegate to the self
         mPickerView.delegate = self
         
-        //Initialise Date Formatter
-        let formatter = DateFormatter()
-        let formatter1 = DateFormatter()
-        let formatter2 = DateFormatter()
-        
-        //setting Date format
-        formatter.setLocalizedDateFormatFromTemplate("MMMM")
-        formatter1.setLocalizedDateFormatFromTemplate("yyyy")
-        formatter2.setLocalizedDateFormatFromTemplate("dd MMMM yyyy")
-        
-        //Getting Month Name from current Date
-        let currentMonth = formatter.string(from: Date())
-        //Getting Year from Current Date
-        let currentYear = formatter1.string(from: Date())
-        //set Date to dateLabel
-        mHeaderDateLabel.text = formatter2.string(from: Date())
-        
-        mMonthArray = mCalendarVM?.mMonthsAry1
-        mYearArray = mCalendarVM?.mYearAry1
-        print(mMonthArray!.count)
-        print(mYearArray!.count)
-        
-        //Setting current Month Name to the picker View
-        for var i in 0..<(mMonthArray!.count) {
-            if mMonthArray!.object(at: i) as! String == currentMonth {
-                mPickerView.selectRow(i, inComponent: 0, animated: true)
-                break
-            }
-        }
-        
-        //Setting current year to the picker View
-        for var j in 0..<(mYearArray!.count) {
-            if mYearArray!.object(at: j) as! String == currentYear {
-                mPickerView.selectRow(j, inComponent: 1, animated: true)
-                break
-            }
-        }
         
         // This Section is for Calender View
         mCalendarView.layer.borderWidth = 3
@@ -122,10 +138,13 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
         mCalendarView.layer.masksToBounds = false
         
         mUtil.setShadowAttribute(myView: mCalendarView, shadowOpacity: 0.6, shadowRadius: 2.0)
-        
+
         //set calendarview datasource to the self
         mCalendarView.dataSource = self
-
+        
+        //Registring cellView xib
+        mCalendarView.registerCellViewXib(file: "CellView") // Registering your cell is manditory
+        
         // Add this new line
         mCalendarView.cellInset = CGPoint(x: 0, y: 0)
         
@@ -136,25 +155,25 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
         
         //set Slide TableView datasource to the self
         mSlideTable.delegate = self
-  
+        
+        
     }
     
     
     @IBAction func mSlideMenuBtn(_ sender: Any) {
         
-        //changing the custom view's size while we change to landscape mode
-        print("views width",view.frame.width)
+        //Creating a UIView programatically
         mCustomView.frame = CGRect.init(x: mSlideTableview.frame.width, y: 0, width: view.frame.width-mSlideTableview.frame.width, height: view.frame.height)
         mCustomView.backgroundColor = UIColor.clear
         
         if(mFlag){
             mSlideViewConstraint.constant = -300
-            //1st case of removing tap gesture(papre) when we click on the icon
             
+            //1st case of removing tap gesture(papre) when we click on the icon
             removeGestureRecognizer()
             
         }else{
-            //enabling the activity indictor
+            //pushing a view into layout
             mSlideViewConstraint.constant = 0
             self.view.addSubview(mCustomView)
             mCustomView.alpha = 0.5
@@ -180,8 +199,6 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
             mCustomView.backgroundColor = UIColor.clear
         }
         if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
-            print("Portrait")
-            print("views width",view.frame.width)
             mCustomView.frame = CGRect.init(x: mSlideTableview.frame.width, y: 0, width: view.frame.width-mSlideTableview.frame.width, height: view.frame.height)
             mCustomView.backgroundColor = UIColor.clear
         }
@@ -222,16 +239,25 @@ class CalendarViewController: UIViewController, CalendarViewProtocol {
 
     
     //Reload Calendar
-    func reloadCalendar() -> Void {
-        //self.mCalendarActivityLoader.stopAnimating()
-        //set calendarView delegate to the self
+    func reloadCalendar(timeStamp:String) -> Void {
+        
+        //set calendarview datasource to the self
+        mCalendarView.dataSource = self
+        
+        //Set calendarView delegate to the self
         mCalendarView.delegate = self
+
         //Registring cellView xib
         mCalendarView.registerCellViewXib(file: "CellView") // Registering your cell is manditory
-
-        mCalendarView.reloadData()
+        
+        let timeStmp = Int(timeStamp)
+        let mthDate = Date.init(timeIntervalSince1970: Double(timeStmp!/1000))
+        mCalendarView.reloadData(){
+            self.mCalendarView.scrollToDate(mthDate)
+        }
     }
     
+    //Method to display error alertView to user
     func showError(message:String) -> Void {
         mUtil.displayErrorMessage(message: message, view: self)
         
@@ -305,15 +331,18 @@ extension CalendarViewController : JTAppleCalendarViewDelegate
               let day = (mCalendarVM?.dayAttendance())!
               dateCell.attendanceData.isHidden = false
               dateCell.attendanceData.text = day+"/"+(mCalendarVM?.mTotalEmployeeCal!)!
-              if (day.compare("0") == ComparisonResult.orderedDescending) {
+              if (day.compare("0") == ComparisonResult.orderedDescending)
+              {
                  dateCell.attendanceData.textColor = UIColor.red
               }
-            else{
+              else
+              {
                 dateCell.attendanceData.textColor = UIColor.green
-            }
+              }
             
         }
-        else{
+        else
+        {
               dateCell.layer.borderWidth = 0.6
               dateCell.layer.borderColor = UIColor.lightGray.cgColor
               dateCell.dayLabel.textColor = UIColor(colorWithHexValue: 0xA9A9A9)
@@ -373,10 +402,9 @@ extension CalendarViewController : UIPickerViewDelegate
     //Methods Executes when picker view row is selected
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-//        self.mCalendarActivityLoader.startAnimating()
         let when = DispatchTime.now() + 8
         DispatchQueue.main.asyncAfter(deadline: when) {
-            
+        
             self.mStrMonth = self.mMonthArray![pickerView.selectedRow(inComponent: 0)] as? String
             self.mStrYear = self.mYearArray![pickerView.selectedRow(inComponent: 1)] as? String
             self.mDateChange = true
@@ -400,14 +428,17 @@ extension CalendarViewController : UIPickerViewDelegate
 
 extension CalendarViewController:UITableViewDataSource{
     
+    //Setting number of sections for table view
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    //Setting number of rows in a section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (mSlideMenuDetail!.count)+1
     }
     
+    //Populating data into a cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "slideCell", for: indexPath)
         
@@ -417,7 +448,7 @@ extension CalendarViewController:UITableViewDataSource{
             cell.backgroundColor = color
             cell.imageView?.frame = CGRect(x: (cell.imageView?.frame.origin.x)!, y: (cell.imageView?.frame.origin.y)!, width: 60, height: 60)
             cell.imageView?.image = #imageLiteral(resourceName: "user")
-            cell.textLabel?.text = "admin@bridgelabz.com"
+            cell.textLabel?.text = mEmailId!
             break
         case SlideTableView.DASHBOARD.rawValue:
             cell.textLabel?.text = mSlideMenuDetail?[indexPath.row-1] as? String
@@ -451,9 +482,12 @@ extension CalendarViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row == 1 {
-            self.navigationController?.popViewController(animated: true)
+         _ = navigationController?.popViewController(animated: true)
         }
         if indexPath.row == 3{
+            mSlideViewConstraint.constant = -300
+            removeGestureRecognizer()
+            mFlag = !mFlag
             return
         }
         if indexPath.row == 6 {

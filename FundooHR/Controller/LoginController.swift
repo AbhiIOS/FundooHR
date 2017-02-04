@@ -42,8 +42,8 @@ class LoginController: NSObject, LoginContrllrProtocol {
     }
     
     //Method to display error message to user
-    func errorMessageCNTRLR() -> Void {
-        pDelegate?.errorMessageVM()
+    func errorMessageCNTRLR(message:String) -> Void {
+        pDelegate?.errorMessageVM(message: message)
     }
 
 }

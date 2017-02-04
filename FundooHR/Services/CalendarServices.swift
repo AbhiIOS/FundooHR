@@ -79,6 +79,7 @@ class CalendarServices: NSObject {
                         
                         //Implement your logic
                         let monthlyAttendance = json as NSDictionary
+                        let monthTimeStamp1 = monthlyAttendance["timeStamp"] as! String
                         self.mTotalEmp = monthlyAttendance["totalEmployee"] as? Int
                         self.mMonthlyAttendance = monthlyAttendance["attendance"] as! NSArray
                         self.mPerDayAttendance = []
@@ -92,7 +93,7 @@ class CalendarServices: NSObject {
                         let sortedArray = self.mPerDayAttendance.sorted{(($0 as! NSDictionary)["day"]as? Int)!<(($1 as! NSDictionary)["day"]as? Int)!}
                         print(sortedArray)
                         
-                        self.pDelegate?.recieveMonthlyAttendanceData(perDayAttendance1: sortedArray as NSArray, totalEmp: self.mTotalEmp)
+                        self.pDelegate?.recieveMonthlyAttendanceData(perDayAttendance1: sortedArray as NSArray, totalEmp: self.mTotalEmp!, timestamp: monthTimeStamp1)
                     }
                     
                 } catch {

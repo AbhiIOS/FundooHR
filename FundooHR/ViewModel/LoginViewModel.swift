@@ -65,8 +65,8 @@ class LoginViewModel: NSObject, LoginViewModelProtocol {
     }
     
     //Display Error message to user
-    func errorMessageVM() -> Void {
-        mLoginVC?.errorMessage()
+    func errorMessageVM(message:String) -> Void {
+        mLoginVC?.errorMessage(message: message)
     }
 
 }

@@ -126,7 +126,9 @@ class DashboardServices: NSObject {
                         let leaveSummary = dashboardData["leaveSummary"] as! NSDictionary
                         self.mLeave = leaveSummary["leave"] as? String
                         
-                        self.pDelegate?.recieveDashboardData(markedData: self.mMarked, unmarkedData: self.mUnmarked, attendanceFallNumber: self.mFallOutNum, leave1: self.mLeave, totalEmployee11: self.mTotalEmployee, timeStamp: self.mTimeStamp2)
+                        let dashboardDataModel1 = DashboardDataModel(markedData: self.mMarked!, unmarkedData: self.mUnmarked!, fallNum: self.mFallOutNum!, leave: self.mLeave!, totalEmp: self.mTotalEmployee!, timestamp: self.mTimeStamp2!)
+                        
+                        self.pDelegate?.recieveDashboardData(dashDataModel:dashboardDataModel1)
                         
                         
                     }

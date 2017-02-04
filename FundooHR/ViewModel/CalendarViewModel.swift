@@ -58,12 +58,13 @@ class CalendarViewModel: NSObject, CalendarViewModelProtocol {
     }
 
     //Saving Monthly Attendance data recieved from controller
-    func monthlyAttendanceDetails(perDayAttendance1:NSArray, totalEmp:Int?) -> Void {
+    func monthlyAttendanceDetails(perDayAttendance1:NSArray, totalEmp:Int?, timestamp:String) -> Void {
         mPerDayAttendance = []
         mPerDayAttendance = perDayAttendance1
         mTotalEmployeeCal = String(describing: totalEmp!)
-        mCalenderViewProt?.reloadCalendar()
         i=0
+        mCalenderViewProt?.reloadCalendar(timeStamp: timestamp)
+        
     }
 
     //Populate Monthly attendance data into calendar
